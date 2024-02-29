@@ -16,11 +16,14 @@ import { AuthService } from '../../auth/services/auth.service';
   styleUrl: './info.component.css',
 })
 export class InfoComponent implements OnInit {
+
+  //Obtenemos el id de la ruta
   @Input()id: number = 0;
 
-  @Input() movie!: Movie;
-  date = new Date();
+  movie!: Movie;
+  date = new Date(); //Obtenemos la fecha actual
   
+  //Creamos una review vacía
   review: Omit<Review, 'reviewId'> = {
     userId: this.authService.getUserId(),
     mediaId: this.id,
@@ -30,6 +33,7 @@ export class InfoComponent implements OnInit {
     deleted: false
   };
 
+  //Variable para mostrar y ocultar la sección de añadir comentarios
   show: boolean = false;
 
   constructor(
@@ -38,14 +42,17 @@ export class InfoComponent implements OnInit {
     private reviewService: ReviewService,
     private authService:AuthService){}
 
+  //Verificamos que el usuario este logueado
   isLogin():boolean{
     return this.authService.isLogin();
   }
 
+  //Obtenemos el id del usuario
   getUserId():number{
     return this.authService.getUserId();
   }
 
+  //Al cargar la página mostramos los datos del libro concreto
   ngOnInit(): void {
     this.review.mediaId = this.id;
     this.movieService.getMovie(this.id).subscribe((data) => {
@@ -53,6 +60,7 @@ export class InfoComponent implements OnInit {
     });
   }
 
+  //Esta función será para mostrar con SweetAlert la sección de comentarios de una película o libro
   showComments() {
     let commentsHtml = '';
     
@@ -61,8 +69,9 @@ export class InfoComponent implements OnInit {
       commentsHtml = '<h3>No comments yet!</h3>';
     } else {
       // Iterar sobre los comentarios
-      for (const review of this.movie.reviews) {
-        if (review.deleted === false) {
+      for (const review of this.movie.reviews) { //Recorremos la lista de comentarios 
+        if (review.deleted === false) { //Si no está eliminados los mostramos
+          //Estructura del html que mostramos
           commentsHtml += `
             <div class="list-group-item">
               <h4 class="list-group-item-heading">
@@ -83,15 +92,15 @@ export class InfoComponent implements OnInit {
         }
       }
     }
-    Swal.fire({
+    Swal.fire({ //Con Swal le asignamos funcionalidad al boton
       title: 'Comments',
       html: commentsHtml,
       confirmButtonText: 'Close',
       didOpen: () => {
         for (const review of this.movie.reviews) {
           if (review.deleted === false && review.userId === this.getUserId()) {
-            const deleteButton = document.getElementById(`deleteReviewButton_${review.reviewId}`);
-            if (deleteButton) {
+            const deleteButton = document.getElementById(`deleteReviewButton_${review.reviewId}`); //Obtenemos el botón con getElementById
+            if (deleteButton) { //Si existe le damos la función de eliminar
               deleteButton.addEventListener('click', () => {
                 this.deleteReview(review.reviewId);
               });
@@ -102,21 +111,21 @@ export class InfoComponent implements OnInit {
     });
   }
   
-
+  //Método para añadir un comentario
   addReview() {
     this.reviewService.postReview(this.review).subscribe({
       next: (data) => {
-        this.review.mediaId = data.mediaId
+        this.review.mediaId = data.mediaId //Le asignamos el id
         this.review = data;
-        this.movie.reviews.push(data);
-        Swal.fire({
+        this.movie.reviews.push(data); //Añadimos el comentario al array de comentarios que pertenece a libros
+        Swal.fire({ //Mostramos un mensaje de éxito
           title: "Good job!",
           text: "Review added succesfully!",
           icon: "success",
         })
-        this.show = false;
+        this.show = false; //Ocultamos el formulario
       },
-      error: (err) => {
+      error: (err) => { //Si existe algún error mostramos el mensaje
         Swal.fire({
           title: "Oops..!",
           text: "Something go bad!",
@@ -126,17 +135,23 @@ export class InfoComponent implements OnInit {
     });
   }
 
+  //Cancelamos el añadir un comentario
+  close(){
+    this.show = false;
+  }
+
+  //Método para eleminar un comentario
   deleteReview(id:number){
     this.reviewService.deleteReview(id).subscribe({
       next : () => {
-        this.movie.reviews.filter((review) => review.reviewId != id)
-        Swal.fire({
+        this.movie.reviews.filter((review) => review.reviewId != id) //Filtramos los comentario para quitarlos de la lista
+        Swal.fire({ // Mostramos un mensaje de éxito en caso de ser eliminado satisfactoriamente
           icon:'success',
           title:'Delete comment',
           text:'Deleted correctly' 
         })
       },
-      error : (err) => {
+      error : (err) => { //Si hay algún error mostramos el mensaje de error
         Swal.fire({
           icon:'error',
           title:'Delete comment',
@@ -146,10 +161,12 @@ export class InfoComponent implements OnInit {
     })
   }
 
+  //Método para volver al catálogo
   goTo() {
     this.router.navigateByUrl('/movies/catalogue');
   }
 
+   //Método para mostrar el poder agregar un comentario
   showArea() {
     this.show = true;
   }

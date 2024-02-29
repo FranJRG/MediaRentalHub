@@ -126,6 +126,7 @@ export class InfoComponent implements OnInit{
           title: "Good job!",
           text: "Review added succesfully!",
           icon: "success",
+          confirmButtonColor: '#428de661',
         })
         this.show=false; //Ocultamos el formulario
       },
@@ -134,6 +135,7 @@ export class InfoComponent implements OnInit{
           title: "Oops..!",
           text: "Something go bad!",
           icon: "error",
+          confirmButtonColor: '#428de661',
         })
       },
     })
@@ -152,14 +154,16 @@ export class InfoComponent implements OnInit{
         Swal.fire({ // Mostramos un mensaje de éxito en caso de ser eliminado satisfactoriamente
           icon:'success',
           title:'Delete comment',
-          text:'Deleted correctly' 
+          text:'Deleted correctly',
+          confirmButtonColor: '#428de661',
         })
       },
       error : (err) => { //Si hay algún error mostramos el mensaje de error
         Swal.fire({
           icon:'error',
           title:'Delete comment',
-          text:'Error! Something went bad' 
+          text:'Error! Something went bad',
+          confirmButtonColor: '#428de661'
         }) 
       }
     })

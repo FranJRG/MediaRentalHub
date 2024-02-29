@@ -11,7 +11,7 @@ export class UploadService {
   unsignedUploadPreset : string = 'amkfctwj';
   cloudName : string = 'dnqf48cwh';
 
-  uploadFile(file: string) {
+  uploadFile(file: string) { //Subimos la imagen a cloudinary
     const url = `https://api.cloudinary.com/v1_1/${this.cloudName}/upload`;
     const fd = new FormData();
     fd.append('upload_preset', this.unsignedUploadPreset);

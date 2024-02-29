@@ -11,10 +11,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class SearchBoxComponent {
 
+  //Emitimos un evento
   @Output() onSearch : EventEmitter<string> = new EventEmitter();
 
+  //Creamos un título
   title : string = "";
 
+  //Pasamos este titulo a través de el evento
   search(){
     this.onSearch.emit(this.title);
   }

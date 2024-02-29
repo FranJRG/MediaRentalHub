@@ -16,8 +16,10 @@ import { UploadService } from '../../books/services/upload.service';
 })
 export class MovieFormComponent {
   
+  //Obtenemos el id de la ruta si existe
   @Input()id = 0;
 
+  //Creamos una imagen vacía
   imageUrl:string = '';
 
   constructor(private movieService:MovieService,
@@ -25,8 +27,10 @@ export class MovieFormComponent {
     private uploadService:UploadService,
     private fb:FormBuilder){}
 
+  //Obtenemos el año actual
   actualYear = new Date().getFullYear();
 
+  //Creamos una película vacía omitiendo el id
   movie:Omit<Movie,"mediaId"> = {
     title:       '',
     releaseDate:  this.actualYear,
@@ -40,6 +44,7 @@ export class MovieFormComponent {
     price:        0.0,
   }
 
+  //Cremos un formulario reactivo con los campos requeridos para crear una película
   myForm:FormGroup = this.fb.group({
     title:['',Validators.required],
     releaseDate:[this.actualYear],
@@ -51,6 +56,7 @@ export class MovieFormComponent {
     stock:[null,[Validators.required,Validators.minLength(1)]]
   })
 
+  //Obtenemos el error en el campo que le pasemos por parámetro
   invalidField(field: string){
     return this.myForm.get(field)?.invalid && this.myForm.get(field)?.touched;
   }
@@ -60,7 +66,7 @@ export class MovieFormComponent {
       this.movieService.getMovie(this.id).subscribe({
         next:(data)=>{
           this.movie = data;
-          this.myForm.setValue({
+          this.myForm.setValue({ //Asignamos los valores del formulario a los campos del libro que hemos buscado
             title:this.movie.title,
             releaseDate:this.movie.releaseDate,
             imageUrl:null,
@@ -75,25 +81,26 @@ export class MovieFormComponent {
     }
   }
 
+  //Método para añadir una película
   addMovie(){
     if (this.myForm.valid) {
       this.uploadService.uploadFile(this.imageUrl).subscribe({
         next: (response:any) => {
-          const imageUrl = response.secure_url;
+          const imageUrl = response.secure_url; //Asignamos la url de la imagen a la imagen creada de tipo string
           this.imageUrl = imageUrl;
-          const {...movie} = this.myForm.value;
+          const {...movie} = this.myForm.value; //Asignamos los campos del formulario a la película
           this.movie = movie;
           this.movie.imageUrl = imageUrl; 
           this.movieService.postMovie(this.movie).subscribe({
             next: (data) => {
               data.mediaId = this.id;
-              Swal.fire({
+              Swal.fire({ //Mensaje de éxito en caso de que la pelicula se suba exitosamente
                 title: "Good job!",
                 text: "Movie added!",
                 icon: "success",
               })
             },
-            error: (err) => {
+            error: (err) => { //Mensaje de error a la hora de añadir un libro
               console.error('Error adding book:', err.message);
               Swal.fire({
                 title: "Error",
@@ -102,9 +109,9 @@ export class MovieFormComponent {
               });
             }
           });
-          this.myForm.reset();
+          this.myForm.reset(); //Reseteamos el formulario
         },
-        error: (err) => {
+        error: (err) => { //Mensaje de error a la hora de subir la imagen
           Swal.fire({
             title: "Opps...!",
             text: "Error!!" + err.message,
@@ -115,24 +122,25 @@ export class MovieFormComponent {
     }
   }
 
+  //Método para editar una película
   editMovie(){
     if (this.myForm.valid) {
-      this.uploadService.uploadFile(this.imageUrl).subscribe({
+      this.uploadService.uploadFile(this.imageUrl).subscribe({ //Subimos la imagen
         next: (response:any) => {
-          const imageUrl = response.secure_url;
+          const imageUrl = response.secure_url; //Asignamos la url en formato string
           this.imageUrl = imageUrl;
-          const {...movie} = this.myForm.value;
+          const {...movie} = this.myForm.value; //Asignamos los valores a la pelicula
           this.movie = movie;
           this.movie.imageUrl = imageUrl; 
-          this.movieService.putMovie(this.movie,this.id).subscribe({
+          this.movieService.putMovie(this.movie,this.id).subscribe({ //Editamos la pelicula
             next: (data) => {
-              Swal.fire({
+              Swal.fire({ //Mensaje de éxito en caso de edición satisfactoria
                 title: "Good job!",
                 text: "Movie update succesfully!",
                 icon: "success",
               })
             },
-            error: (err) => {
+            error: (err) => { //Mensaje de error en caso de no poder editar correctamente
               Swal.fire({
                 title: "Error",
                 text: "There was an error updating the movie. Please try again later.",
@@ -140,9 +148,9 @@ export class MovieFormComponent {
               });
             }
           });
-          this.myForm.reset();
+          this.myForm.reset(); //Reseteamos el formulario
         },
-        error: (err) => {
+        error: (err) => { //Mensaje de error en caso de no poder subir la imagen
           Swal.fire({
             title: "Opps...!",
             text: "Error!!" + err.message,
@@ -153,6 +161,7 @@ export class MovieFormComponent {
     }
   }
 
+  //Método para asociar la imagen que creamos con el input de tipo file
   getFile(event: Event) {
     
     const input: HTMLInputElement = <HTMLInputElement>event.target;

@@ -5,14 +5,20 @@
       <header>Register</header>
       <form [formGroup]="myForm" (submit)="register()">
         <input type="text" formControlName="name" placeholder="Name" />
+        @if (invalidField('name')) {
+          <span class="form-text text-danger"> Name is required </span>
+        }
         <input
           type="text"
           formControlName="last_name"
           placeholder="Last name"
         />
+        @if (invalidField('last_name')) {
+          <span class="form-text text-danger"> Last Name is required </span>
+        }
         <input type="text" formControlName="username" placeholder="Username" />
         @if (invalidField('username')) {
-          <span class="form-text text-danger"> Username already exist </span>
+          <span class="form-text text-danger"> {{UsernameErrorMsg}} </span>
         }
         <input type="text" formControlName="email" placeholder="Email" />
         @if (invalidField('email')) {
@@ -25,7 +31,7 @@
         />
         @if (invalidField('password')) {
         <span class="form-text text-danger">
-          La constraseña debe tener 8 caracteres
+          The password must have 8 characters
         </span>
         }
         <input
@@ -34,9 +40,16 @@
           placeholder="Confirm your password"
         />
         @if(invalidField('confirmPassword')){
-        <small style="color: red">The passwords must be equals</small>
+          <span class="form-text text-danger">
+            The password must be equals
+          </span>
         }
         <input type="text" formControlName="address" placeholder="Address" />
+        @if(invalidField('address')){
+          <span class="form-text text-danger">
+            Address is required
+          </span>
+        }
         <input type="submit" class="button" value="Register" />
       </form>
     </div>

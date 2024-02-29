@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { jwtGuard } from './shared/guards/jwt.guard';
+import { ErrorComponent } from './error/error.component';
 
 export const routes: Routes = [
     {
@@ -31,5 +32,9 @@ export const routes: Routes = [
     {
         path:'media',
         loadChildren : () => import('./media/routes').then(mod => mod.routes)
+    },
+    {
+        path:'**',
+        component:ErrorComponent
     }
 ];

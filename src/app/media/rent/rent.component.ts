@@ -40,6 +40,7 @@ export class RentComponent implements OnInit {
     private router: Router
   ) {}
 
+  //Al cargar la página
   ngOnInit(): void {
     this.myForm = this.fb.group({
       userId: [this.authService.getUserId()],
@@ -65,9 +66,11 @@ export class RentComponent implements OnInit {
     });
   }
 
+  //Método para mostrar el resumen de la compra para confirmarla
   showPurchase() {
     Swal.fire({
       title: 'Confirm your rent',
+      //Estructura del html
       html: `
         <label>User id</label>
         <input type="text" id="swal-userId" class="swal2-input" value="${this.rental.userId}" readonly>
@@ -82,7 +85,7 @@ export class RentComponent implements OnInit {
       `,
       confirmButtonText: 'Confirm',
       focusConfirm: false,
-      preConfirm: () => {
+      preConfirm: () => { //Asignamos los valores a los campos de la renta
         const userId = (document.getElementById('swal-userId') as HTMLInputElement).value;
         const mediaId = (document.getElementById('swal-mediaId') as HTMLInputElement).value;
         const rentalDate = (document.getElementById('swal-rentalDate') as HTMLInputElement).value;
@@ -93,20 +96,21 @@ export class RentComponent implements OnInit {
     });
   }
 
+  //Método para alquilar una media
   rentMedia() {
     if (this.myForm.valid) {
-      const { ...rental } = this.myForm.value;
+      const { ...rental } = this.myForm.value; //Asignamos los valores del formulario a la renta
       this.rental = rental;
-      this.rentalService.postRental(this.rental).subscribe({
+      this.rentalService.postRental(this.rental).subscribe({ //La añadimos
         next: (data) => {
-          this.rental.mediaId = data.mediaId;
-          Swal.fire({
+          this.rental.mediaId = data.mediaId; //Asignamos el id de la media a la renta
+          Swal.fire({ //Mostramos mensaje de éxito
             icon: 'success',
             title:'Rent complete!',
             text: 'Enjoy it!',
           });
         },
-        error: (err) => {
+        error: (err) => { //Mensaje de error en caso de contener errores
           Swal.fire({
             icon: 'error',
             title:'Rent error',
@@ -117,9 +121,7 @@ export class RentComponent implements OnInit {
     }
   }
 
-  
-  
-
+  //Método para volver al home
   goTo() {
     this.router.navigateByUrl('/');
   }

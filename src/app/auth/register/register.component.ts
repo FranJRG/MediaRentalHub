@@ -78,6 +78,21 @@ export class RegisterComponent {
     return errorMessage
   }
 
+  //Obtenemos los mensajes de error del username según la validación
+  get UsernameErrorMsg():string{
+    const error = this.myForm.get('username')?.errors;
+    let errorMessage = '';
+    if(error){
+      if(error['required']){
+        errorMessage = 'Username is required';
+      }else if (error['usernameExist']){
+        errorMessage = 'Email already exist';
+      }
+    }
+
+    return errorMessage
+  }
+
   //Método para el registro de usuario
   register(){
     if(this.myForm.valid){
@@ -87,7 +102,8 @@ export class RegisterComponent {
         next:(data) => {
           Swal.fire({
             icon:'success',
-            text:'User created correctly' //Mostramos un mensaje de éxito cuando el usuario haya sido registrado satisfactoriamente
+            text:'User created correctly', //Mostramos un mensaje de éxito cuando el usuario haya sido registrado satisfactoriamente
+            confirmButtonColor: '#428de661',
           })
           this.myForm.reset();  //Reseteamos el formulario
         }

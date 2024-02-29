@@ -2,18 +2,38 @@
   <div class="container">
     <input type="checkbox" id="check" />
     <div class="login form">
-      <header>Add movie</header>
+      <header>{{id != undefined && id != 0 ? 'Edit movie' : 'Add movie'}}</header>
       <form [formGroup]="myForm">
         <label>Title<span>*</span></label>
         <input type="text" formControlName="title" placeholder="Title" />
+        @if (invalidField('title')) {
+          <small style="color: red;">Title is required</small>
+        }
+        <br>
         <label>Gender<span>*</span></label>
         <input type="text" formControlName="gender" placeholder="Gender" />
+        @if (invalidField('gender')) {
+          <small style="color: red;">Gender is required</small>
+        }
+        <br>
         <label>Director<span>*</span></label>
         <input type="text" formControlName="director" placeholder="Director" />
+        @if (invalidField('director')) {
+          <small style="color: red;">Director is required</small>
+        }
+        <br>
         <label>Price<span>*</span></label>
         <input type="number" step="0.01" formControlName="price" placeholder="Price" />
+        @if (invalidField('price')) {
+          <small style="color: red;">Price is required</small>
+        }
+        <br>
         <label>Stock<span>*</span></label>
         <input type="number" formControlName="stock" placeholder="Stock" />
+        @if (invalidField('stock')) {
+          <small style="color: red;">Stock is required</small>
+        }
+        <br>
         <label>Image</label>
         <input type="file" id="image" formControlName="imageUrl" (change)="getFile($event)">
         @if (this.id != 0 && this.id != undefined) {

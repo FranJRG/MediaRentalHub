@@ -49,7 +49,7 @@ export class BooksCatComponent implements OnInit{
     if(this.title != undefined ) { //Si el título existe (Buscamos algo en la barra de búsqueda)
       url = `${url}&&title=${this.title}` //Le añadimos el titulo a la url para filtrar
     }
-    this.bookService.getBooks(url).subscribe({ //Hacemos el getBooks de forma página 
+    this.bookService.getBooks(url).subscribe({ //Hacemos el getBooks de forma páginada
       next: (data: any) => {
         this.page = data;
         this.totalItems = data.totalElements;
@@ -60,6 +60,7 @@ export class BooksCatComponent implements OnInit{
           icon: 'error',
           title: 'Not found',
           text: 'Sorry this book is not available yet', //Si el libro no se encuentra mandamos un mensaje de error
+          confirmButtonColor: '#428de661',
         });
       }
     });
