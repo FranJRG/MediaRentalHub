@@ -12,6 +12,7 @@ export class MediaService {
 
   constructor(private http:HttpClient) { }
 
+  //Obtenemos una media por su id
   getMedia(id:number):Observable<Media>{
     return this.http.get<Media>(`${this.url}/${id}`);
   }

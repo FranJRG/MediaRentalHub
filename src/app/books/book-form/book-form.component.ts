@@ -49,7 +49,7 @@ export class BookFormComponent implements OnInit{
     gender:['',Validators.required],
     imageUrl:[null],
     author:['',Validators.required],
-    price:[null,Validators.required],
+    price:[null,Validators.required,Validators.minLength(1)],
     available:[true],
     stock:[null,[Validators.required,Validators.minLength(1)]]
   })
@@ -57,6 +57,34 @@ export class BookFormComponent implements OnInit{
   //Obtenemos el error en el campo que le pasemos por parámetro
   invalidField(field: string){
     return this.myForm.get(field)?.invalid && this.myForm.get(field)?.touched;
+  }
+
+  get stockMessage():string{
+    const error = this.myForm.get('stock')?.errors;
+    let errorMessage = '';
+    if(error){
+      if(error['required']){
+        errorMessage = 'Stock is required';
+      }else if (error['minLength']){
+        errorMessage = 'Min value must be 1';
+      }
+    }
+
+    return errorMessage
+  }
+
+  get priceMessage():string{
+    const error = this.myForm.get('price')?.errors;
+    let errorMessage = '';
+    if(error){
+      if(error['required']){
+        errorMessage = 'Price is required';
+      }else if (error['minLength']){
+        errorMessage = 'Min value must be 1';
+      }
+    }
+
+    return errorMessage
   }
 
   //Al cargar la página si el id es distinto de 0 o está definido

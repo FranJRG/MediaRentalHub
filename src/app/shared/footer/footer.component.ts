@@ -12,6 +12,7 @@ export class FooterComponent {
 
   constructor(private router:Router){}
 
+  //Cuando estemos en la ruta login no mostaremos el footer
   toLogin():boolean{
     return this.router.url==='/auth/login'
   }

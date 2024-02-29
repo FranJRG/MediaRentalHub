@@ -28,6 +28,7 @@ export class RentComponent implements OnInit {
   myForm!: FormGroup;
   show:boolean = false;
 
+  //Variable de la fecha actual y la fecha limite que tenemos
   currentDate = new Date();
   limitDate = new Date(this.currentDate.getTime() + 10 * 24 * 60 * 60 * 1000);
 
@@ -40,9 +41,9 @@ export class RentComponent implements OnInit {
     private router: Router
   ) {}
 
-  //Al cargar la página
+  //Al cargar la página mostramos los datos de la media y le asignamos los datos a la renta
   ngOnInit(): void {
-    this.myForm = this.fb.group({
+    this.myForm = this.fb.group({ //Creamos el formulario con los valores por defecto
       userId: [this.authService.getUserId()],
       mediaId: [this.id],
       rentalDate: [this.currentDate],
@@ -50,7 +51,7 @@ export class RentComponent implements OnInit {
       quantity: [1],
     });
 
-    this.rental = {
+    this.rental = { //Creamos la renta con los valores por defecto
       userId: this.authService.getUserId(),
       mediaId: this.id,
       rentalDate: this.currentDate,
@@ -59,7 +60,7 @@ export class RentComponent implements OnInit {
       returned:false
     };
 
-    this.mediaService.getMedia(this.id).subscribe({
+    this.mediaService.getMedia(this.id).subscribe({ //Rescatamos los datos de la media que queremos comprar 
       next: (data) => {
         this.media = data;
       },

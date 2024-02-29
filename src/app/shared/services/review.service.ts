@@ -10,12 +10,15 @@ export class ReviewService {
 
   constructor(private http:HttpClient) { }
 
+  //Url standar 
   private url = 'http://localhost:8080/reviews/';
 
+  //Añadir una review
   postReview(review:Omit<Review, "reviewId">):Observable<Review>{
     return  this.http.post<Review>(this.url, review);
   }
 
+  //Eliminar una review
   deleteReview(id:number):Observable<any>{
     return this.http.delete<any>(`${this.url}${id}`);
   }

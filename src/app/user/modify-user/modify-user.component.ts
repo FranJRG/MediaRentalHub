@@ -16,8 +16,10 @@ import Swal from 'sweetalert2';
 })
 export class ModifyUserComponent implements OnInit {
 
+  //Variable para rescatar el id de la url
   @Input() id: number = 0;
 
+  //Creamos un usuario omitiendo los campos que no queremos que aparezcan
   user: Omit<User, 'user_id' | "registration_date" | "password" | "rentals" | "reviews" | "activated"> = {
     username: '',
     email: '',
@@ -35,11 +37,12 @@ export class ModifyUserComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
+  //Al cargar la página mostramos los datos del usuario
   ngOnInit(): void {
     this.userService.getUser(this.id).subscribe({
       next: (data) => {
         this.user = data;
-        this.myForm.setValue({
+        this.myForm.setValue({ //Asignamos los datos al formulario
           username:this.user.username,
           email:this.user.email,
           address:this.user.address,
@@ -51,6 +54,7 @@ export class ModifyUserComponent implements OnInit {
     })
   }
 
+  //Creamos un formulario con los campos necesarios
   myForm:FormGroup = this.fb.group({
     username:['',Validators.required],
     email:['',[Validators.required,Validators.pattern(this.validations.emailPattern)]],
@@ -61,13 +65,14 @@ export class ModifyUserComponent implements OnInit {
   })
 
 
+  //Actualizamos el usuario
   updateUser(){
     if(this.myForm.valid){
-      const {...user} = this.myForm.value;
-      this.user = user;
+      const {...user} = this.myForm.value; //Asignamos los datos del usuario a un objeto user
+      this.user = user; //Lo asignamos a nuestro user
       this.userService.putUser(this.user,this.id).subscribe({
         next: (data) => {
-          Swal.fire({
+          Swal.fire({ //Mostramos un mensaje de éxito en caso de ser válido
             title: "Good job!",
             text: "User update succesfully!",
             icon: "success",

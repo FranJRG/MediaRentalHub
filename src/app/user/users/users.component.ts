@@ -18,17 +18,18 @@ export class UsersComponent implements OnInit{
 
   constructor(private userService:UserService){}
 
-
+  //Al cargar la página cargamos todos los usuarios
   ngOnInit(): void {
     this.userService.getUsers().subscribe({
       next:(data) => this.users = data
     })
   }
 
+  //Desactivar usuarios
   disactivatedUser(id?:number){
     this.userService.deleteUser(id).subscribe({
       next : () => {
-        this.users = this.users.filter((user) => user.user_id != id);
+        this.users = this.users.filter((user) => user.user_id != id); //Filtramos la lista por los usuarios descativados
       }
     })
   }
