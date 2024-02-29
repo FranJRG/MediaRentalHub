@@ -43,8 +43,8 @@ export class RegisterComponent {
 
   //Creamos nuestro formulario reactivo con los campos necesarios para crear un usuario
   myForm:FormGroup = this.fb.group({
-    username:['',Validators.required],
-    email:['',[Validators.required,Validators.pattern(this.validations.emailPattern)]], //Validamos que el email sea válido
+    username:['',Validators.required, [this.usernameValidatorService]],
+    email:['',[Validators.required,Validators.pattern(this.validations.emailPattern)],[this.emailValidatorService]], //Validamos que el email sea válido
     password:['',[Validators.required,Validators.minLength(8)]], //La longitud mínima de la contraseña será de 8
     address:['',Validators.required],
     registration_date:[this.currentDate],
@@ -86,7 +86,7 @@ export class RegisterComponent {
       if(error['required']){
         errorMessage = 'Username is required';
       }else if (error['usernameExist']){
-        errorMessage = 'Email already exist';
+        errorMessage = 'Username already exist';
       }
     }
 

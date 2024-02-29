@@ -102,4 +102,6 @@ body {
   background-color: #f0f0f0;
 }
 
-
+label{
+  font-weight: bold;
+}
