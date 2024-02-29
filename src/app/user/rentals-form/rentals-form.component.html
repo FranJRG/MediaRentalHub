@@ -1,0 +1,32 @@
+<table class="table">
+    <tr>
+      <th>Rental id</th>
+      <th>Id media</th>
+      <th>Date of rental</th>
+      <th>Date of return</th>
+      <th>Quantity</th>
+      <th>Return</th>
+      <th>Returned</th>
+    </tr>
+    @if (user) {
+      @for (rental of user.rentals; track $index) {
+      <tr>
+        <td>{{ rental.rentalId}}</td>
+        <td>{{ rental.mediaId }}</td>
+        <td>{{ rental.rentalDate }}</td>
+        <td>{{ rental.returnDate }}</td>
+        <td>{{ rental.quantity }}</td>
+        <!-- @if (rental.returnDate < currentDate) {
+          <td><button (click)="devolveMedia(rental.mediaId)">Devolve media</button></td>
+        } -->
+        <td>
+          <button class="btn btn-outline-primary" (click)="devolveMedia(rental.rentalId)">Return media</button>
+        </td>
+        <td>
+          {{rental.returned === false ? '❌' : '✔️'}}
+        </td>
+      </tr>
+    }
+  }
+  </table>
+  

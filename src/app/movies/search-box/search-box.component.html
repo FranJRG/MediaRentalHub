@@ -1,0 +1,13 @@
+<div class="container">
+  <form class="search" (ngSubmit)="search()">
+    <input
+      class="barra"
+      type="search"
+      placeholder="Search by title..."
+      aria-label="Search"
+      name="title"
+      [(ngModel)]="title"
+    />
+    <button class="button" type="submit">Buscar</button>
+  </form>
+</div>

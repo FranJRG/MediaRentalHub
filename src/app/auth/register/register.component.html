@@ -1,0 +1,44 @@
+<body>
+  <div class="container">
+    <input type="checkbox" id="check" />
+    <div class="login form">
+      <header>Register</header>
+      <form [formGroup]="myForm" (submit)="register()">
+        <input type="text" formControlName="name" placeholder="Name" />
+        <input
+          type="text"
+          formControlName="last_name"
+          placeholder="Last name"
+        />
+        <input type="text" formControlName="username" placeholder="Username" />
+        @if (invalidField('username')) {
+          <span class="form-text text-danger"> Username already exist </span>
+        }
+        <input type="text" formControlName="email" placeholder="Email" />
+        @if (invalidField('email')) {
+        <span class="form-text text-danger"> {{EmailErroMsg}} </span>
+        }
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Password"
+        />
+        @if (invalidField('password')) {
+        <span class="form-text text-danger">
+          La constraseña debe tener 8 caracteres
+        </span>
+        }
+        <input
+          type="password"
+          formControlName="confirmPassword"
+          placeholder="Confirm your password"
+        />
+        @if(invalidField('confirmPassword')){
+        <small style="color: red">The passwords must be equals</small>
+        }
+        <input type="text" formControlName="address" placeholder="Address" />
+        <input type="submit" class="button" value="Register" />
+      </form>
+    </div>
+  </div>
+</body>

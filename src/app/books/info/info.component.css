@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  background-color: #f8f9fa;
+  padding: 30px;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 60px;
+}
+
+.card-body{
+    height: 400px;
+}
+
+img{
+    border-radius: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.btn-clear-background {
+    background-color: rgb(245, 245, 220,100%);
+    border-radius: 10px;
+    border: none;
+    color: antiquewhite;
+}
+
+.btn-clear-background:hover {
+    background-color: #f0f0f0;
+}

@@ -1,0 +1,23 @@
+#nav{
+  background-color: rgb(66, 141, 230,38%);
+}
+
+#nav2{
+  background-color: rgb(66, 141, 230,21%);
+  height: 40px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center; 
+}
+
+.btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+}
+
+.btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}

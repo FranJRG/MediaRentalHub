@@ -1,0 +1,133 @@
+<div class="container text-center my-5 position-relative">
+  <button
+    (click)="goTo()"
+    class="btn btn-outline position-absolute top-0 start-0 mt-3 ms-3"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-arrow-bar-left"
+      viewBox="0 0 16 16"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5"
+      />
+    </svg>
+  </button>
+  <div class="container text-center my-5">
+    <div class="row">
+      <div class="col-md-6 order-md-first">
+        <img
+          class="card-img-top"
+          src="{{ book.imageUrl }}"
+          alt="Book cover"
+          style="height: 400px; object-fit: cover"
+        />
+      </div>
+      <div class="col-md-6">
+        <div class="card" style="width: 100%">
+          <div class="card-body">
+            <div class="form-group">
+              <label for="director" class="form-label">Author</label>
+              <input
+                id="director"
+                name="director"
+                value="{{ book.author }}"
+                class="form-control"
+                type="text"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="title" class="form-label">Title</label>
+              <input
+                id="title"
+                name="title"
+                value="{{ book.title }}"
+                class="form-control"
+                type="text"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="gender" class="form-label">Gender</label>
+              <input
+                id="gender"
+                name="gender"
+                value="{{ book.gender }}"
+                class="form-control"
+                type="text"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="releaseDate" class="form-label">Release Date</label>
+              <input
+                id="releaseDate"
+                name="releaseDate"
+                value="{{ book.releaseDate }}"
+                class="form-control"
+                type="text"
+                readonly
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="available" class="form-label">Available</label>
+              <input
+                id="available"
+                name="available"
+                value="{{ book.available ? 'Yes' : 'No' }}"
+                class="form-control"
+                type="text"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-3">
+        <div class="col-md-8">
+          <div class="list-group">
+            <button (click)="showComments()" class="btn btn-primary">Show Comments</button>
+            <div *ngIf="isLogin()" class="mt-3">
+              <button *ngIf="!show" (click)="showArea()" class="btn btn-warning">Add a Review</button>
+              <div *ngIf="show" class="review-form">
+                <div class="form-group">
+                  <label for="rating">Rating:</label>
+                  <input
+                    id="rating"
+                    type="number"
+                    min="0"
+                    max="5"
+                    class="form-control"
+                    name="rating"
+                    [(ngModel)]="review.rating"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="comment">Comment:</label>
+                  <textarea
+                    id="comment"
+                    class="form-control"
+                    rows="3"
+                    name="comment"
+                    [(ngModel)]="review.comment"
+                  ></textarea>
+                </div>
+                <button (click)="addReview()" class="btn btn-outline-success">Add Review</button>
+                <button (click)="close()" class="btn btn-outline-danger">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

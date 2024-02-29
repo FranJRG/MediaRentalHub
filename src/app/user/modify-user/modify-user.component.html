@@ -1,0 +1,49 @@
+<body>
+  <div class="container">
+    <input type="checkbox" id="check" />
+    <div class="login form">
+      <header>Edit User</header>
+      <form [formGroup]="myForm" (ngSubmit)="updateUser()">
+        <label>Name</label>
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Name"
+        />
+        <label>Last Name</label>
+        <input
+          type="text"
+          formControlName="last_name"
+          placeholder="Last name"
+        />
+        <label>Username</label>
+        <input
+          type="text"
+          name="username"
+          formControlName="username"
+          placeholder="Username"
+        />
+        <label>Email</label>
+        <input
+          type="text"
+          name="email"
+          formControlName="email"
+          placeholder="Email"
+        />
+        <label>Address</label>
+        <input
+          type="text"
+          formControlName="address"
+          placeholder="Address"
+        />
+        <label>Role</label>
+        <input
+          type="text"
+          formControlName="role"
+          placeholder="Role"
+        />
+        <input type="submit" class="button" value="Edit" />
+      </form>
+    </div>
+  </div>
+</body>
