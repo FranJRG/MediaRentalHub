@@ -17,7 +17,7 @@
 
 <div class="container text-center my-5">
   <div class="row">
-    @for (book of books != null ? books.slice(0, 3) : []; track $index) {
+    @for (book of books != null ? books.slice(0, 8) : []; track $index) {
     <div class="card" style="width: 18rem">
       <img
         class="card-img-top"
@@ -38,7 +38,7 @@
 
 <div class="container text-center my-5">
   <div class="row">
-    @for (movie of movies != null ? movies.slice(0, 3) : []; track $index) {
+    @for (movie of movies != null ? movies.slice(0, 8) : []; track $index) {
     <div class="card" style="width: 18rem">
       <img
         class="card-img-top"
@@ -60,7 +60,7 @@
 <div class="container text-center my-5">
   <div class="row">
     <h1>Drama/War/Action</h1>
-    @for (movie of movies != null ? movies.slice(0, 3) : []; track $index) { 
+    @for (movie of movies != null ? movies.slice(0, 8) : []; track $index) { 
       @if(movie.gender.includes("Drama") || movie.gender.includes("War") ||
     movie.gender.includes("Action")) {
     <div class="card" style="width: 18rem">
@@ -75,7 +75,7 @@
         <p class="card-text">{{ movie.director }}</p>
       </div>
     </div>
-    } } @for (book of books != null ? books.slice(0, 3) : []; track $index) {
+    } } @for (book of books != null ? books.slice(0, 8) : []; track $index) {
     @if (book.gender.includes("Drama") || book.gender.includes("War") ||
     book.gender.includes("Action")) {
     <div class="card" style="width: 18rem">
@@ -92,7 +92,7 @@
     </div>
     } }
     <h1>Comedy/Romantic</h1>
-    @for (movie of movies != null ? movies.slice(0, 3) : []; track $index) {
+    @for (movie of movies != null ? movies.slice(0, 8) : []; track $index) {
     @if(movie.gender.includes("Romance") || movie.gender.includes("Comedy")) {
     <div class="card" style="width: 18rem">
       <img
@@ -106,7 +106,7 @@
         <p class="card-text">{{ movie.director }}</p>
       </div>
     </div>
-    } } @for (book of books != null ? books.slice(0, 3) : []; track $index) {
+    } } @for (book of books != null ? books.slice(0, 8) : []; track $index) {
     @if (book.gender.includes("Romance") || book.gender.includes("Comedt¡y")) {
     <div class="card" style="width: 18rem">
       <img
@@ -122,7 +122,7 @@
     </div>
     } }
     <h1>Horror/Mistery/Thriller</h1>
-    @for (movie of movies != null ? movies.slice(0, 3) : []; track $index) {
+    @for (movie of movies != null ? movies.slice(0, 8) : []; track $index) {
     @if(movie.gender.includes("Horror") || movie.gender.includes("Thriller") ||
     movie.gender.includes("Mistery")) {
     <div class="card" style="width: 18rem">
@@ -137,7 +137,7 @@
         <p class="card-text">{{ movie.director }}</p>
       </div>
     </div>
-    } } @for (book of books != null ? books.slice(0, 3) : []; track $index) {
+    } } @for (book of books != null ? books.slice(0, 8) : []; track $index) {
     @if (book.gender.includes("Horror") || book.gender.includes("Thriller") ||
     book.gender.includes("Mistery")) {
     <div class="card" style="width: 18rem">

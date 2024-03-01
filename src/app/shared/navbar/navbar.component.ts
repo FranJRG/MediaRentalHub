@@ -19,11 +19,6 @@ export class NavbarComponent {
   constructor(private router:Router,
     private authService:AuthService){}
 
-  //Cuando estemos en la ruta login no mostraremos el navbar
-  toLogin():boolean{
-    return this.router.url==='/auth/login'
-  }
-
   //Comprobamos que sea admin
   isAdmin():boolean{
     return this.authService.isAdmin();

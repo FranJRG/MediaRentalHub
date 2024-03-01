@@ -1,4 +1,3 @@
-@if(!toLogin()){
 <nav
   xmlns:th="http://www.w3.org/1999/xhtml"
   id="nav"
@@ -35,43 +34,46 @@
     >
       @if (isLogin()==true) {
 
-        <div class="dropdown">
-          <a
-            class="btn btn-link dropdown-toggle"
-            type="button"
-            id="navbarDropdown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            {{username()}}
-          </a>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="navbarDropdown"
-          >
-          @if (isAdmin()) {
-            <li>
-              <a class="dropdown-item" routerLink="/users/list">Edit profiles</a>
-            </li>
-          }@if(isLogin()) {
-            <li>
-              <a class="dropdown-item" routerLink="/users/editUser/{{idUser()}}">Edit my profile</a>
-            </li>
-          }
-          <li><a routerLink="/users/rentals" class="dropdown-item">My rentals</a></li>
-          </ul>
-        </div>
-      }
-      @if (isLogin() == false) {
-        <button
-          class="btn btn-outline me-2"
-          routerLink="/auth/login"
-          style="border: none; padding-left: 15px;"
+      <div class="dropdown">
+        <a
+          class="btn btn-link dropdown-toggle"
+          type="button"
+          id="navbarDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
         >
-          Login
-        </button>
+          {{ username() }}
+        </a>
+        <ul
+          class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="navbarDropdown"
+        >
+          @if (isAdmin()) {
+          <li>
+            <a class="dropdown-item" routerLink="/users/list">Edit profiles</a>
+          </li>
+          }@if(isLogin()) {
+          <li>
+            <a class="dropdown-item" routerLink="/users/editUser/{{ idUser() }}"
+              >Edit my profile</a
+            >
+          </li>
+          }
+          <li>
+            <a routerLink="/users/rentals" class="dropdown-item">My rentals</a>
+          </li>
+        </ul>
+      </div>
+      } @if (isLogin() == false) {
+      <button
+        class="btn btn-outline me-2"
+        routerLink="/auth/login"
+        style="border: none; padding-left: 15px"
+      >
+        Login
+      </button>
       }@else {
-        <button
+      <button
         class="btn btn-outline me-2"
         (click)="logout()"
         style="border: none"
@@ -84,30 +86,54 @@
 </nav>
 <nav id="nav2" class="navbar navbar-expand-lg navbar-dark">
   <div class="container">
-      <a routerLink="/" style="padding: 10px">Home</a>
-      <div class="dropdown">
-          <a routerLinkActive="active" class="dropdown-toggle" href="#" role="button" id="booksDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 10px">
-              Books
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="booksDropdown">
-              <li><a class="dropdown-item" routerLink="/books/catalogue">Catalogue</a></li>
-              @if (isAdmin()) {
-                <li><a class="dropdown-item" routerLink="/books/addBook">Add Book</a></li>
-              }
-          </ul>
-      </div>
-      <div class="dropdown">
-          <a routerLinkActive="active" class="dropdown-toggle" href="#" role="button" id="moviesDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 10px">
-              Movies
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="moviesDropdown">
-              <li><a class="dropdown-item" routerLink="/movies/catalogue" >Catalogue</a></li>
-              @if (isAdmin()) {
-              <li><a class="dropdown-item" routerLink="/movies/addMovie">Add Movie</a></li>
-              }
-          </ul>
-      </div>
+    <a routerLink="/" style="padding: 10px">Home</a>
+    <div class="dropdown">
+      <a
+        routerLinkActive="active"
+        class="dropdown-toggle"
+        href="#"
+        role="button"
+        id="booksDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        style="padding: 10px"
+      >
+        Books
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="booksDropdown">
+        <li>
+          <a class="dropdown-item" routerLink="/books/catalogue">Catalogue</a>
+        </li>
+        @if (isAdmin()) {
+        <li>
+          <a class="dropdown-item" routerLink="/books/addBook">Add Book</a>
+        </li>
+        }
+      </ul>
+    </div>
+    <div class="dropdown">
+      <a
+        routerLinkActive="active"
+        class="dropdown-toggle"
+        href="#"
+        role="button"
+        id="moviesDropdown"
+        data-bs-toggle="dropdown"
+        aria-expanded="false"
+        style="padding: 10px"
+      >
+        Movies
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="moviesDropdown">
+        <li>
+          <a class="dropdown-item" routerLink="/movies/catalogue">Catalogue</a>
+        </li>
+        @if (isAdmin()) {
+        <li>
+          <a class="dropdown-item" routerLink="/movies/addMovie">Add Movie</a>
+        </li>
+        }
+      </ul>
+    </div>
   </div>
 </nav>
-
-}

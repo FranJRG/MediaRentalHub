@@ -96,35 +96,11 @@
       <div class="row justify-content-center mt-3">
         <div class="col-md-8">
           <div class="list-group">
-            <button (click)="showComments()" class="btn btn-primary">Show Comments</button>
-            <div *ngIf="isLogin()" class="mt-3">
-              <button *ngIf="!show" (click)="showArea()" class="btn btn-warning">Add a Review</button>
-              <div *ngIf="show" class="review-form">
-                <div class="form-group">
-                  <label for="rating">Rating:</label>
-                  <input
-                    id="rating"
-                    type="number"
-                    min="0"
-                    max="5"
-                    class="form-control"
-                    name="rating"
-                    [(ngModel)]="review.rating"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="comment">Comment:</label>
-                  <textarea
-                    id="comment"
-                    class="form-control"
-                    rows="3"
-                    name="comment"
-                    [(ngModel)]="review.comment"
-                  ></textarea>
-                </div>
-                <button (click)="addReview()" class="btn btn-success">Add Review</button>
-              </div>
-            </div>
+            <button (click)="showComments()" class="btn btn-outline-primary">Show Comments</button>
+            <br>
+            @if (isLogin()) {
+              <button (click)="showAddComment()" class="btn btn-outline-warning">Add a comment</button>
+            }
           </div>
         </div>
       </div>
