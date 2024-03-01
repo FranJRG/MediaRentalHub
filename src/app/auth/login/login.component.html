@@ -22,7 +22,9 @@
     <div class="login form">
       <header>Login</header>
       <form #myForm="ngForm" (ngSubmit)="login()">
+        <label>Username<span style="color:red">*</span></label>
         <input type="text" placeholder="Enter your username" name="username" ngModel #username/>
+        <label>Password<span style="color: red;">*</span></label>
         <input type="password" placeholder="Enter your password" name="password" ngModel #password/>
         <input type="submit" class="button"  value="Login" />
       </form>

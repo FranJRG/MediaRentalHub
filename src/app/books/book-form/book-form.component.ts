@@ -49,9 +49,9 @@ export class BookFormComponent implements OnInit{
     gender:['',Validators.required],
     imageUrl:[null],
     author:['',Validators.required],
-    price:[null,Validators.required,Validators.minLength(1)],
+    price:[null,[Validators.required,Validators.min(1)]],
     available:[true],
-    stock:[null,[Validators.required,Validators.minLength(1)]]
+    stock:[null,[Validators.required,Validators.min(1)]]
   })
 
   //Obtenemos el error en el campo que le pasemos por parámetro
@@ -65,7 +65,7 @@ export class BookFormComponent implements OnInit{
     if(error){
       if(error['required']){
         errorMessage = 'Stock is required';
-      }else if (error['minLength']){
+      }else if (error['min']){
         errorMessage = 'Min value must be 1';
       }
     }
@@ -79,7 +79,7 @@ export class BookFormComponent implements OnInit{
     if(error){
       if(error['required']){
         errorMessage = 'Price is required';
-      }else if (error['minLength']){
+      }else if (error['min']){
         errorMessage = 'Min value must be 1';
       }
     }

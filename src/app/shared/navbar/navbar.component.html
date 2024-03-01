@@ -14,8 +14,10 @@
         alt="MDB Logo"
         loading="lazy"
       />
-      <small>MediaRentalHub</small>
     </a>
+    <div class="title">
+      <h3>MediaRentalHub</h3>
+    </div>
     <button
       class="navbar-toggler"
       type="button"
@@ -53,7 +55,7 @@
             </li>
           }@if(isLogin()) {
             <li>
-              <a class="dropdown-item" routerLink="/users/editUsers/{{idUser()}}">Edit my profile</a>
+              <a class="dropdown-item" routerLink="/users/editUser/{{idUser()}}">Edit my profile</a>
             </li>
           }
           <li><a routerLink="/users/rentals" class="dropdown-item">My rentals</a></li>
@@ -84,7 +86,7 @@
   <div class="container">
       <a routerLink="/" style="padding: 10px">Home</a>
       <div class="dropdown">
-          <a class="dropdown-toggle" href="#" role="button" id="booksDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 10px">
+          <a routerLinkActive="active" class="dropdown-toggle" href="#" role="button" id="booksDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 10px">
               Books
           </a>
           <ul class="dropdown-menu" aria-labelledby="booksDropdown">
@@ -95,11 +97,11 @@
           </ul>
       </div>
       <div class="dropdown">
-          <a class="dropdown-toggle" href="#" role="button" id="moviesDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 10px">
+          <a routerLinkActive="active" class="dropdown-toggle" href="#" role="button" id="moviesDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 10px">
               Movies
           </a>
           <ul class="dropdown-menu" aria-labelledby="moviesDropdown">
-              <li><a class="dropdown-item" routerLink="/movies/catalogue">Catalogue</a></li>
+              <li><a class="dropdown-item" routerLink="/movies/catalogue" >Catalogue</a></li>
               @if (isAdmin()) {
               <li><a class="dropdown-item" routerLink="/movies/addMovie">Add Movie</a></li>
               }

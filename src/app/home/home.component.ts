@@ -4,11 +4,12 @@ import { BookService } from '../books/services/book.service';
 import { MovieService } from '../movies/services/movie.service';
 import { Movie, MovieContent } from '../movies/interfaces/movie';
 import { jwtDecode } from 'jwt-decode';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

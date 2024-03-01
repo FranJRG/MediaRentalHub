@@ -1,13 +1,13 @@
-<div class="container">
+<div class="search-box-container">
   <form class="search" (ngSubmit)="search()">
     <input
-      class="barra"
-      type="search"
-      placeholder="Search by title..."
-      aria-label="Search"
-      name="title"
+      type="text"
       [(ngModel)]="title"
+      class="search-box-input"
+      name="title"
+      placeholder="Search for books..."
     />
-    <button class="button" type="submit">Buscar</button>
+    <button class="search-box-button" type="submit">Search</button>
   </form>
 </div>
+

@@ -8,12 +8,12 @@
   margin-bottom: 60px;
 }
 
-.card-body{
-    height: 400px;
+.card-body {
+  height: 470px;
 }
 
-img{
-    border-radius: 10px;
+img {
+  border-radius: 10px;
 }
 
 label {
@@ -21,12 +21,22 @@ label {
 }
 
 .btn-clear-background {
-    background-color: rgb(245, 245, 220,100%);
-    border-radius: 10px;
-    border: none;
-    color: antiquewhite;
+  background-color: rgb(245, 245, 220, 100%);
+  border-radius: 10px;
+  border: none;
+  color: antiquewhite;
 }
 
 .btn-clear-background:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column; /* Alinea los elementos en columna */
+  align-items: flex-start; /* Alinea los elementos a la izquierda */
+}
+
+.form-label {
+  margin-bottom: 5px; /* Ajusta el margen inferior del label */
 }

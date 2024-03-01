@@ -20,5 +20,10 @@ export const routes:Routes = [
         path:'editUsers/:id',
         component:ModifyUserComponent,
         canMatch:[adminGuard]
+    },
+    {
+        path:'editUser/:id',
+        component:ModifyUserComponent,
+        canMatch:[jwtGuard]
     }
 ]

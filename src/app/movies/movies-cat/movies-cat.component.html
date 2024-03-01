@@ -1,5 +1,8 @@
-<div class="select-container">
-  <label>Order by: </label>
+<div style="margin: 5%;" class="catalog-title">
+  <h1>🎥 Explore Our Collection of Movies 🎥</h1>
+  <p>Discover a wide range of movies carefully selected for you.</p>
+</div>
+<div style="margin-bottom: -3%; margin-left: 8.2%;"  class="select-container">
   <select
     [(ngModel)]="sortField"
     (change)="setPage(pageNumber, sortField, order)"
@@ -53,10 +56,10 @@
     </button>
     }
   </div>
-  <app-search-box (onSearch)="search($event)"></app-search-box>
 </div>
+<app-search-box (onSearch)="search($event)"></app-search-box>
 
-<div class="grid-container">
+<div class="grid-container" style="margin-right: 9%;">
   @for (movie of movies; track $index) { @if (movie.available === true) {
 
   <div class="card" style="width: 18rem">
@@ -129,7 +132,8 @@
       </button>
       } @if (isLogin() === true) {
       <button
-        class="btn btn-outline-info"
+        class="btn btn-outline-primary"
+        style="margin: 5px;"
         routerLink="/media/rent/{{ movie.mediaId }}"
       >
         Rent this movie!
@@ -151,6 +155,7 @@
   </div>
   } }
 </div>
+
 <div class="pagination-container">
   Total Items: <a>{{ totalItems }}</a>
   @if (pageNumber > 1) {

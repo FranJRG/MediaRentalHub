@@ -98,3 +98,7 @@ body{
 .btn-clear-background:hover {
     background-color: #f0f0f0;
 }
+
+label{
+  font-weight: bold;
+}

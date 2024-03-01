@@ -1,10 +1,21 @@
 #nav{
-  background-color: rgb(66, 141, 230,38%);
+  background-color: rgba(8, 57, 118);
 }
 
 #nav2{
-  background-color: rgb(66, 141, 230,21%);
-  height: 40px;
+  background-color: #1a5ac377;
+  height: 60px;
+}
+
+#nav2 a{
+  font-size: 20px;
+  color:  #083976;
+}
+
+.title{
+  color: white;
+  font-weight: 20px;
+  margin-right: 3%; 
 }
 
 .navbar {
