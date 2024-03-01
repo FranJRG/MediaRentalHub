@@ -32,6 +32,7 @@ export class RentalsFormComponent implements OnInit {
     this.userService.getUser(idUser).subscribe({
       next: (data) => {
         this.user = data;
+        console.log(this.user)
       },
     });
   }

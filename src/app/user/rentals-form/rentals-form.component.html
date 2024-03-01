@@ -16,9 +16,6 @@
         <td>{{ rental.rentalDate }}</td>
         <td>{{ rental.returnDate }}</td>
         <td>{{ rental.quantity }}</td>
-        <!-- @if (rental.returnDate < currentDate) {
-          <td><button (click)="devolveMedia(rental.mediaId)">Devolve media</button></td>
-        } -->
         <td>
           <button class="btn btn-outline-primary" (click)="devolveMedia(rental.rentalId)">Return media</button>
         </td>
