@@ -10,15 +10,16 @@ export class ValidateEmailService implements AsyncValidator{
 
   constructor(private http:HttpClient) { }
 
-  validate(control: AbstractControl<any, any>): Observable<ValidationErrors | null> { //Validador asincrono para validar el email
+  validate(control: AbstractControl<any, any>): Observable<ValidationErrors | null> {
     const email = control.value;
-
-    return this.http.get<any[]>(`http://localhost:8080/userEmail/${email}`).pipe( //Buscamos el usuario por el email
+  
+    return this.http.get<any[]>(`http://localhost:8080/userEmail/${email}`).pipe(
       map(resp => {
-        return resp.length === 0 ? null : {emailExist : true} //Si la longitud de la respuesta es mayor a 0 es decir que existe no permitimos ese email
+        return resp.length === 0 ? null : { emailExist: true };
       }),
-      catchError(err => of(null))
-    )
-    
+      catchError(err => {
+        return of(null);
+      })
+    );
   }
 }

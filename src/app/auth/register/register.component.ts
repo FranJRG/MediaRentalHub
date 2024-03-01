@@ -17,100 +17,90 @@ import { UploadService } from '../../books/services/upload.service';
 })
 export class RegisterComponent {
 
-  constructor(private userService:UserService,
-  private validations:ValidatorService,
-  private emailValidatorService:ValidateEmailService,
-  private usernameValidatorService:ValidateUsernameService,
-  private fb:FormBuilder){}
+  constructor(
+    private userService: UserService,
+    private fb: FormBuilder,
+    private emailValidatorService: ValidateEmailService,
+    private usernameValidatorService: ValidateUsernameService,
+    private validatorService : ValidatorService
+  ) {}
 
-  //Variable para extraer la fecha actual;
-  currentDate:Date = new Date();
+  currentDate: Date = new Date();
   
-  //Inicializamos un user vacío con omit del id ya que es autoincrementado
-  user:Omit<User,"user_id"> = {
-    username:"",
-    email:"",
-    password:"",
-    address:"",
-    registration_date:this.currentDate,
-    name:"",
-    last_name:"",
-    role:"user",
-    activated:true,
+  user: Omit<User, "user_id"> = {
+    username: "",
+    email: "",
+    password: "",
+    address: "",
+    registration_date: this.currentDate,
+    name: "",
+    last_name: "",
+    role: "user",
+    activated: true,
     reviews: [],
     rentals: []
   }
 
-  //Creamos nuestro formulario reactivo con los campos necesarios para crear un usuario
-  myForm:FormGroup = this.fb.group({
-    username:['',Validators.required, [this.usernameValidatorService]],
-    email:['',[Validators.required,Validators.pattern(this.validations.emailPattern)],[this.emailValidatorService]], //Validamos que el email sea válido
-    password:['',[Validators.required,Validators.minLength(8)]], //La longitud mínima de la contraseña será de 8
-    address:['',Validators.required],
-    registration_date:[this.currentDate],
-    name:['',Validators.required],
-    last_name:['',Validators.required],
-    role:['user'],
-    reviews:[[]],
-    rentals:[[]],
-    confirmPassword:['',Validators.required]
-  },{validators:[this.validations.equalFields('password','confirmPassword')]}) //Validamos que la contraseña y la confirmación sean iguales
+  myForm: FormGroup = this.fb.group({
+    username: ['', [Validators.required], [this.usernameValidatorService.validate.bind(this.usernameValidatorService)]],
+    email: ['', [Validators.required, Validators.email], [this.emailValidatorService.validate.bind(this.emailValidatorService)]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    address: ['', Validators.required],
+    registration_date: [this.currentDate],
+    name: ['', Validators.required],
+    last_name: ['', Validators.required],
+    role: ['user'],
+    reviews: [[]],
+    rentals: [[]],
+    confirmPassword: ['', Validators.required]
+  }, {validators: [this.validatorService.equalFields('password', 'confirmPassword')]});
 
-  //Si hay algún campo inválido mostramos el error
-  invalidField(field: string){
+  invalidField(field: string) {
     return this.myForm.get(field)?.invalid && this.myForm.get(field)?.touched;
   }
 
-  //Como el correo tiene varias validaciones, le decimos que mensaje mostrará según el error
-  get EmailErroMsg():string{
+  get EmailErroMsg(): string {
     const error = this.myForm.get('email')?.errors;
     let errorMessage = '';
-    if(error){
-      if(error['required']){
+    if(error) {
+      if(error['required']) {
         errorMessage = 'Email is required';
-      }else if (error['emailExist']){
-        errorMessage = 'Email already exist';
-      }else if (error['pattern']) {
+      } else if (error['emailExist']) {
+        errorMessage = 'Email already exists';
+      } else if (error['email']) {
         errorMessage = 'Email format not valid';
       }
     }
-
-    return errorMessage
+    return errorMessage;
   }
 
-  //Obtenemos los mensajes de error del username según la validación
-  get UsernameErrorMsg():string{
+  get UsernameErrorMsg(): string {
     const error = this.myForm.get('username')?.errors;
     let errorMessage = '';
-    if(error){
-      if(error['required']){
+    if(error) {
+      if(error['required']) {
         errorMessage = 'Username is required';
-      }else if (error['usernameExist']){
-        errorMessage = 'Username already exist';
+      } else if (error['usernameExist']) {
+        errorMessage = 'Username already exists';
       }
     }
-
-    return errorMessage
+    return errorMessage;
   }
 
-  //Método para el registro de usuario
-  register(){
-    if(this.myForm.valid){
-      const {...user} = this.myForm.value; //Hacemos una copia del usuario y le asignamos los valores del formulario
-      this.user = user; //Igualamos el usuario vacío a este usuario
+  register() {
+    if(this.myForm.valid) {
+      const {...user} = this.myForm.value;
+      this.user = user;
       this.userService.postUser(this.user).subscribe({ 
-        next:(data) => {
+        next: (data) => {
           Swal.fire({
-            icon:'success',
-            text:'User created correctly', //Mostramos un mensaje de éxito cuando el usuario haya sido registrado satisfactoriamente
+            icon: 'success',
+            text: 'User created correctly',
             confirmButtonColor: '#428de661',
           })
-          this.myForm.reset();  //Reseteamos el formulario
+          this.myForm.reset();
         }
       })
     }
   }
-
-
-
 }

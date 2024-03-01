@@ -60,6 +60,58 @@ export class InfoComponent implements OnInit {
     });
   }
 
+    //Método para mostrar la sección de añadir un comentario
+    showAddComment() {
+      const swalContent = `
+        <div *ngIf="isLogin()" class="mt-3">
+          <div *ngIf="show" class="review-form">
+            <div class="form-group">
+              <label for="rating">Rating:</label>
+              <input
+                id="rating"
+                type="number"
+                min="0"
+                max="5"
+                class="form-control"
+                name="rating"
+                #ratingInput
+              />
+            </div>
+            <div class="form-group">
+              <label for="comment">Comment:</label>
+              <textarea
+                id="comment"
+                class="form-control"
+                rows="3"
+                name="comment"
+                #commentInput
+              ></textarea>
+            </div>
+            <br>
+            <button id="addComment" class="btn btn-success">Add Review</button>
+          </div>
+        </div>
+      `;
+    
+      Swal.fire({ //Con Swal mostramos la sección
+        html: swalContent,
+        showConfirmButton: false,
+        showCloseButton: true,
+        customClass: {
+          popup: 'sweet-alert-popup',
+          closeButton: 'sweet-alert-close-button'
+        },
+        didOpen: () => { //Debido a que Swal no entiende las directivas de angular deberemos rescatar los elementos y añadirlos
+          const addButton = document.getElementById('addComment');
+          addButton?.addEventListener('click', () => {
+            const rating = (document.getElementById('rating') as HTMLInputElement).value;
+            const comment = (document.getElementById('comment') as HTMLTextAreaElement).value;
+            this.addReview(comment, parseInt(rating)); //Llamamos al método de addReview para añadir la valoracion
+          });
+        }
+      });
+    }
+
   //Esta función será para mostrar con SweetAlert la sección de comentarios de una película o libro
   showComments() {
     let commentsHtml = '';
@@ -112,7 +164,7 @@ export class InfoComponent implements OnInit {
   }
   
   //Método para añadir un comentario
-  addReview() {
+  addReview(comment:string, rating:number) {
     this.reviewService.postReview(this.review).subscribe({
       next: (data) => {
         this.review.mediaId = data.mediaId //Le asignamos el id

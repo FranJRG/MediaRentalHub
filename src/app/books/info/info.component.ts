@@ -62,6 +62,7 @@ export class InfoComponent implements OnInit{
     );
   }
   
+  //Método para mostrar la sección de añadir un comentario
   showAddComment() {
     const swalContent = `
       <div *ngIf="isLogin()" class="mt-3">
@@ -94,7 +95,7 @@ export class InfoComponent implements OnInit{
       </div>
     `;
   
-    Swal.fire({
+    Swal.fire({ //Con Swal mostramos la sección
       html: swalContent,
       showConfirmButton: false,
       showCloseButton: true,
@@ -102,12 +103,12 @@ export class InfoComponent implements OnInit{
         popup: 'sweet-alert-popup',
         closeButton: 'sweet-alert-close-button'
       },
-      didOpen: () => {
+      didOpen: () => { //Debido a que Swal no entiende las directivas de angular deberemos rescatar los elementos y añadirlos
         const addButton = document.getElementById('addComment');
         addButton?.addEventListener('click', () => {
           const rating = (document.getElementById('rating') as HTMLInputElement).value;
           const comment = (document.getElementById('comment') as HTMLTextAreaElement).value;
-          this.addReview(comment, parseInt(rating));
+          this.addReview(comment, parseInt(rating)); //Llamamos al método de addReview para añadir la valoracion
         });
       }
     });

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AbstractControl, AsyncValidator, ValidationErrors } from '@angular/forms';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,8 @@ export class ValidateUsernameService implements AsyncValidator{
     return this.http.get<any[]>(`http://localhost:8080/user/${username}`).pipe( //Buscamos el usuario por el username
       map(resp => {
         return resp.length === 0 ? null : {usernameExist : true} // Si la longitud de la respuesta es mayor a 0 no dejamos que escoga el
-      })
+      }),
+      catchError(err => of(null))
     )
   }
 
