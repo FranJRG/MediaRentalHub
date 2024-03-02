@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MediaService {
 
-  url:string = 'http://localhost:8080/media';
+  url:string = 'https://proyectoapi-franjrg.onrender.com/media';
 
   constructor(private http:HttpClient) { }
 

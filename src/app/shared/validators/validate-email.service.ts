@@ -13,7 +13,7 @@ export class ValidateEmailService implements AsyncValidator{
   validate(control: AbstractControl<any, any>): Observable<ValidationErrors | null> {
     const email = control.value;
   
-    return this.http.get<any[]>(`http://localhost:8080/userEmail/${email}`).pipe(
+    return this.http.get<any[]>(`https://proyectoapi-franjrg.onrender.com/userEmail/${email}`).pipe(
       map(resp => {
         return resp.length === 0 ? null : { emailExist: true };
       }),

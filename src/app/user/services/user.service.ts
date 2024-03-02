@@ -10,7 +10,7 @@ export class UserService {
 
   constructor(private http:HttpClient) { }
 
-  url:string = "http://localhost:8080/users";
+  url:string = "https://proyectoapi-franjrg.onrender.com/users";
   
   getUsers():Observable<User[]>{
     return  this.http.get<User[]>(this.url);

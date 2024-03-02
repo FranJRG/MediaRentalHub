@@ -11,7 +11,7 @@ export class ReviewService {
   constructor(private http:HttpClient) { }
 
   //Url standar 
-  private url = 'http://localhost:8080/reviews/';
+  private url = 'https://proyectoapi-franjrg.onrender.com/reviews/';
 
   //Añadir una review
   postReview(review:Omit<Review, "reviewId">):Observable<Review>{

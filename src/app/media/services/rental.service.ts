@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class RentalService {
 
-  url:string = 'http://localhost:8080/rentals';
+  url:string = 'https://proyectoapi-franjrg.onrender.com/rentals';
 
   constructor(private http:HttpClient) { }
 

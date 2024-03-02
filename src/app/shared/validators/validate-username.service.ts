@@ -13,7 +13,7 @@ export class ValidateUsernameService implements AsyncValidator{
   validate(control: AbstractControl<any, any>): Observable<ValidationErrors | null> { //Validador asincrono para el username existente
     const username = control.value;
 
-    return this.http.get<any[]>(`http://localhost:8080/user/${username}`).pipe( //Buscamos el usuario por el username
+    return this.http.get<any[]>(`https://proyectoapi-franjrg.onrender.com/user/${username}`).pipe( //Buscamos el usuario por el username
       map(resp => {
         return resp.length === 0 ? null : {usernameExist : true} // Si la longitud de la respuesta es mayor a 0 no dejamos que escoga el
       }),
