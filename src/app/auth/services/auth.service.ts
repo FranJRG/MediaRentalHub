@@ -10,7 +10,7 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class AuthService {
 
-  private baseUrl = 'http://localhost:8080/signin'; //Ruta para loguearnos
+  private baseUrl = 'https://proyectoapi-franjrg.onrender.com/signin'; //Ruta para loguearnos
   private _user!:User;
 
   get user():User{
