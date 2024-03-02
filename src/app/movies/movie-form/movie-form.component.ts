@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import { MovieService } from '../services/movie.service';
 import { Movie } from '../interfaces/movie';
 import { CloudinaryModule } from '@cloudinary/ng';
-import { ValidateTitleService } from '../services/validators/validate-title.service';
 import { UploadService } from '../../books/services/upload.service';
 
 @Component({
@@ -23,7 +22,6 @@ export class MovieFormComponent {
   imageUrl:string = '';
 
   constructor(private movieService:MovieService,
-    private validateTitle:ValidateTitleService,
     private uploadService:UploadService,
     private fb:FormBuilder){}
 
