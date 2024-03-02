@@ -32,7 +32,7 @@ export class LoginComponent {
             }else{
               Swal.fire({
                 title:'Error!',
-                text:'Something go bad',
+                text:'Username or password incorrect, try again',
                 icon:'error',
                 confirmButtonText:"Accept" //Mandamos un mensaje de error en caso de no ser un usuario válido
               })

@@ -73,18 +73,33 @@ export class RentComponent implements OnInit {
       title: 'Confirm your rent',
       //Estructura del html
       html: `
-        <label>User id</label>
-        <input type="text" id="swal-userId" class="swal2-input" value="${this.rental.userId}" readonly>
-        <label>Media id</label>
-        <input type="text" id="swal-mediaId" class="swal2-input" value="${this.id}" readonly>
-        <label>Rental date</label>
-        <input type="text" id="swal-rentalDate" class="swal2-input" value="${this.currentDate}" readonly>
-        <label>Return date</label>
-        <input type="text" id="swal-returnDate" class="swal2-input" value="${this.limitDate}" readonly>
-        <label>Quantity</label>
-        <input type="number" id="swal-quantity" class="swal2-input" value="${this.myForm.get('quantity')?.value}" readonly>
+      <div class="form-group">
+        <label for="swal-userId">User id</label>
+        <input type="text" id="swal-userId" class="form-control" value="${this.rental.userId}" readonly>
+      </div>
+      <br>
+      <div class="form-group">
+          <label for="swal-mediaId">Media id</label>
+          <input type="text" id="swal-mediaId" class="form-control" value="${this.id}" readonly>
+      </div>
+      <br>
+      <div class="form-group">
+          <label for="swal-rentalDate">Rental date</label>
+          <input type="text" id="swal-rentalDate" class="form-control" value="${this.currentDate}" readonly>
+      </div>
+      <br>
+      <div class="form-group">
+          <label for="swal-returnDate">Return date</label>
+          <input type="text" id="swal-returnDate" class="form-control" value="${this.limitDate}" readonly>
+      </div>
+      
+      <div class="form-group">
+          <label for="swal-quantity">Quantity</label>
+          <input type="number" id="swal-quantity" class="form-control" value="${this.myForm.get('quantity')?.value}" readonly>
+      </div>
       `,
       confirmButtonText: 'Confirm',
+      confirmButtonColor: '#428de661',
       focusConfirm: false,
       preConfirm: () => { //Asignamos los valores a los campos de la renta
         const userId = (document.getElementById('swal-userId') as HTMLInputElement).value;
