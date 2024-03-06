@@ -148,6 +148,7 @@ export class InfoComponent implements OnInit {
       title: 'Comments',
       html: commentsHtml,
       confirmButtonText: 'Close',
+      confirmButtonColor: '#428de661',
       didOpen: () => {
         for (const review of this.movie.reviews) {
           if (review.deleted === false && review.userId === this.getUserId()) {
