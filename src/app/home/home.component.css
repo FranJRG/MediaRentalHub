@@ -1,136 +1,182 @@
 .slider-frame {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 400px;
+  margin-left: 17%;
+  margin-top: 2%;
+  overflow: hidden;
+}
+
+.centered {
+  margin: 0 auto;
+}
+
+.slider-frame ul {
+  display: flex;
+  padding: 0;
+  width: 500%;
+  animation: slide 15s infinite alternate ease-in-out;
+}
+
+.slider-frame li {
+  width: 20%;
+  list-style: none;
+}
+
+.slider-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  object-position: center;
+}
+
+@keyframes slide {
+  0% {
+    margin-left: 0;
+  }
+  20% {
+    margin-left: 0;
+  }
+  25% {
+    margin-left: -100%;
+  }
+  45% {
+    margin-left: -100%;
+  }
+  50% {
+    margin-left: -200%;
+  }
+  70% {
+    margin-left: -200%;
+  }
+  75% {
+    margin-left: -300%;
+  }
+  100% {
+    margin-left: -300%;
+  }
+}
+
+.container {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 60px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+}
+
+h2 {
+  margin: 30px;
+}
+
+.appear h1 {
+  font-weight: bold;
+  font-size: 75px;
+}
+
+.appear {
+  animation: fadeInAnimation 2s ease-out forwards;
+  opacity: 0;
+  margin-top: 2%;
+  font-weight: bold;
+  color: #4a90e2;
+  margin-bottom: 10px;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .slider-frame {
+    height: 300px;
+    margin-left: 0;
+    margin-top: 2%;
+  }
+  h1 {
+    font-size: 30px !important;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  h1 {
+    font-size: 30px !important;
+  }
+
+  .slider-frame {
     display: grid;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 400px;
-    margin-left: 17%; 
+    margin-left: 0%;
     margin-top: 2%;
     overflow: hidden;
-}
+  }
 
-.centered {
+  .centered {
     margin: 0 auto;
-}
+  }
 
-.slider-frame ul {
+  .slider-frame ul {
     display: flex;
     padding: 0;
     width: 500%;
     animation: slide 15s infinite alternate ease-in-out;
-}
+  }
 
-.slider-frame li {
+  .slider-frame li {
     width: 20%;
     list-style: none;
-}
+  }
 
-.slider-frame img {
+  .slider-frame img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
     object-position: center;
-}
+  }
 
-@keyframes slide {
-    0% {margin-left: 0;}
-    20% {margin-left: 0;}
-    25% {margin-left: -100%;}
-    45% {margin-left: -100%;}
-    50% {margin-left: -200%;}
-    70% {margin-left: -200%;}
-    75% {margin-left: -300%;}
-    100% {margin-left: -300%;}
-}
-
-.container {
-    background-color: #f8f9fa; 
-    padding: 30px;
-    border-radius: 10px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    margin-bottom:  60px;
-}
-
-.row{
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    padding: 10px;
-}
-
-h2{
-    margin: 30px;
-}
-
-.appear h1 {
-    font-weight: bold;
-    font-size: 75px;
-}
-
-.appear {
-    animation: fadeInAnimation 2s ease-out forwards;
-    opacity: 0;
-    margin-top: 2%;
-    font-weight: bold;
-    color: #4a90e2;
-    margin-bottom: 10px;
-}
-
-@keyframes fadeInAnimation {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-@media only screen and (max-width: 600px) {
-
-    .appear h1 {
-        font-size: 24px;
+  @keyframes slide {
+    0% {
+      margin-left: 0;
     }
-
-    .slider-frame {
-        overflow: hidden; 
+    20% {
+      margin-left: 0;
     }
-
-    .slider-frame ul {
-        display: flex;
-        padding: 0;
-        width: 500%; 
-        animation: slide 15s infinite alternate ease-in-out;
-        margin: 0;
-        list-style-type: none; 
-        transition: transform 0.5s ease;
-        transform: translateX(-20%);
+    25% {
+      margin-left: -100%;
     }
-
-    .slider-frame li {
-        width: 100%; 
-        flex-shrink: 0;
+    45% {
+      margin-left: -100%;
     }
-
-    .slider-frame img {
-        width: 100%;
-        height: auto; 
-        object-fit: cover; 
-        border-radius: 10px;
+    50% {
+      margin-left: -200%;
     }
-
-    @keyframes slide {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-80%); }
+    70% {
+      margin-left: -200%;
     }
-
-    h2 {
-        font-size: 24px; 
+    75% {
+      margin-left: -300%;
     }
-
-
-    .card {
-        width: calc(50% - 20px); 
-        margin: 10px; 
+    100% {
+      margin-left: -300%;
     }
-
-    .card img {
-        height: auto; 
-    }
+  }
 }
