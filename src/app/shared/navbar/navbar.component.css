@@ -32,3 +32,9 @@
 .btn:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
+
+@media only screen and (max-width: 480px) {
+  .dropdown-menu {
+    left: -50px !important;
+  }
+}
