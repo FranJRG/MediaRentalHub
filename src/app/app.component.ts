@@ -13,6 +13,6 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'MediaRentalHub';
+  title = 'MediaRentalHub'; 
 
 }
