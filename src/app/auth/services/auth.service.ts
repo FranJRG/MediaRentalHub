@@ -11,7 +11,6 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthService {
 
   private baseUrl = 'https://proyectoapi-franjrg.onrender.com/signin'; //Ruta para loguearnos
-  
   private _user!:User;
 
   get user():User{
