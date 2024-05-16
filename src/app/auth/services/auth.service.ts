@@ -20,6 +20,7 @@ export class AuthService {
   constructor(private http:HttpClient, private router:Router) { }
 
   storage(resp:LoginResponse){ //Almacenamos el token en el localstorage
+    
     localStorage.setItem('token',resp.token) //Seteamos el localstorage con un token
     this._user = resp.user //Igualamos el usuario a la respuesta que obtenemos;
   }

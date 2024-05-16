@@ -99,7 +99,7 @@ export class BooksCatComponent implements OnInit{
   deleteBook(id:number){
     this.bookService.deleteBook(id).subscribe({ //Llamamos al método de delete del servicio
       next: () => {
-        this.books = this.books.filter(book => book.mediaId !== id); //Devolvemos la lista filtrada de libros eliminando el que coincida con el id
+        this.books = this.books.filter(book => book.media_id !== id); //Devolvemos la lista filtrada de libros eliminando el que coincida con el id
       }
     })
   }

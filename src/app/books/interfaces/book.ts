@@ -1,9 +1,9 @@
 export interface Book {
-    mediaId?:     number;
+    media_id?:     number;
     title:       string;
-    releaseDate: number;
+    release_date: number;
     gender:      string;
-    imageUrl:    string;
+    image_url:    string;
     available:   boolean;
     stock:       number;
     rentals:     Rental[];
@@ -19,7 +19,6 @@ export interface Review {
     comment:  string;
     rating:   number;
     creation_date: Date;
-    deleted: boolean;
 }
 
 export interface Rental {
@@ -45,11 +44,11 @@ export interface Main {
 }
 
 export interface Content {
-    mediaId:     number;
+    media_id:     number;
     title:       string;
-    releaseDate: number;
+    release_date: number;
     gender:      string;
-    imageUrl:    string;
+    image_url:    string;
     available:   boolean;
     stock:       number;
     rentals:     null;

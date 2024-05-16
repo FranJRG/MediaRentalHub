@@ -30,7 +30,6 @@ export class InfoComponent implements OnInit {
     comment: '',
     rating: 0,
     creation_date: this.date,
-    deleted: false
   };
 
   //Variable para mostrar y ocultar la sección de añadir comentarios
@@ -122,7 +121,6 @@ export class InfoComponent implements OnInit {
     } else {
       // Iterar sobre los comentarios
       for (const review of this.movie.reviews) { //Recorremos la lista de comentarios 
-        if (review.deleted === false) { //Si no está eliminados los mostramos
           //Estructura del html que mostramos
           commentsHtml += `
             <div class="list-group-item">
@@ -141,7 +139,6 @@ export class InfoComponent implements OnInit {
               ` : ''}
             </div>
           `;
-        }
       }
     }
     Swal.fire({ //Con Swal le asignamos funcionalidad al boton
@@ -150,7 +147,7 @@ export class InfoComponent implements OnInit {
       confirmButtonText: 'Close',
       didOpen: () => {
         for (const review of this.movie.reviews) {
-          if (review.deleted === false && review.userId === this.getUserId()) {
+          if (review.userId === this.getUserId()) {
             const deleteButton = document.getElementById(`deleteReviewButton_${review.reviewId}`); //Obtenemos el botón con getElementById
             if (deleteButton) { //Si existe le damos la función de eliminar
               deleteButton.addEventListener('click', () => {

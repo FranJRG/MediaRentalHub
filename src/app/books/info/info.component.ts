@@ -30,8 +30,7 @@ export class InfoComponent implements OnInit{
     mediaId:  this.id,
     comment:  "",
     rating:   0,
-    creation_date: this.date,
-    deleted: false
+    creation_date: this.date
   }
 
   constructor(private bookService:BookService,
@@ -125,7 +124,6 @@ export class InfoComponent implements OnInit{
     } else {
       // Iterar sobre los comentarios
       for (const review of this.book.reviews) { //Recorremos la lista de comentarios 
-        if (review.deleted === false) { //Si no está eliminados los mostramos
           //Estructura del html que mostramos
           commentsHtml += `
             <div class="list-group-item">
@@ -145,7 +143,6 @@ export class InfoComponent implements OnInit{
               <hr>
             </div>
           `;
-        }
       }
     }
     Swal.fire({ //Con Swal le asignamos funcionalidad al boton
@@ -155,7 +152,7 @@ export class InfoComponent implements OnInit{
       confirmButtonColor: '#428de661',
       didOpen: () => {
         for (const review of this.book.reviews) {
-          if (review.deleted === false && review.userId === this.getUserId()) {
+          if (review.userId === this.getUserId()) {
             const deleteButton = document.getElementById(`deleteReviewButton_${review.reviewId}`); //Obtenemos el botón con getElementById
             if (deleteButton) { //Si existe le damos la función de eliminar
               deleteButton.addEventListener('click', () => {
