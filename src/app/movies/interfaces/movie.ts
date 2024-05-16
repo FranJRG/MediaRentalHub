@@ -19,7 +19,6 @@ export interface Review {
     comment:  string;
     rating:   number;
     creation_date: Date;
-    deleted:    boolean;
 }
 
 export interface Rental {
