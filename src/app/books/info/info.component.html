@@ -1,127 +1,133 @@
 <div class="alert alert-light text-center" role="alert">
   <small>Welcome to the rating section! Feel free to share your opinion.</small>
 </div>
-<div class="container text-center my-5 position-relative">
-  <button
-    (click)="goTo()"
-    class="btn btn-outline position-absolute top-0 start-0 mt-3 ms-3"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      fill="currentColor"
-      class="bi bi-arrow-bar-left"
-      viewBox="0 0 16 16"
+
+@if (book) {
+  
+  <div class="container text-center my-5 position-relative">
+    <button
+      (click)="goTo()"
+      class="btn btn-outline position-absolute top-0 start-0 mt-3 ms-3"
     >
-      <path
-        fill-rule="evenodd"
-        d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5"
-      />
-    </svg>
-    Back
-  </button>
-  <div class="container text-center my-5">
-    <div class="row">
-      <div class="col-md-6 order-md-first">
-        <img
-          class="card-img-top"
-          src="{{ book.image_url }}"
-          alt="Book cover"
-          style="height: 490px; object-fit: cover"
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrow-bar-left"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5"
         />
-      </div>
-      <div class="col-md-6">
-        <div class="card" style="width: 100%">
-          <div class="card-body">
-            <div class="form-group">
-              <label for="director" class="form-label">Director</label>
-              <input
-                id="director"
-                name="director"
-                value="{{ book.author }}"
-                class="form-control"
-                type="text"
-                readonly
-              />
-            </div>
-            <br>
-            <div class="form-group">
-              <label for="title" class="form-label">Title</label>
-              <input
-                id="title"
-                name="title"
-                value="{{ book.title }}"
-                class="form-control"
-                type="text"
-                readonly
-              />
-            </div>
-            <br>
-            <div class="form-group">
-              <label for="gender" class="form-label">Gender</label>
-              <input
-                id="gender"
-                name="gender"
-                value="{{ book.gender }}"
-                class="form-control"
-                type="text"
-                readonly
-              />
-            </div>
-            <br>
-            <div class="form-group">
-              <label for="releaseDate" class="form-label">Release Date</label>
-              <input
-                id="releaseDate"
-                name="releaseDate"
-                value="{{ book.release_date }}"
-                class="form-control"
-                type="text"
-                readonly
-              />
-            </div>
-            <br>
-            <div class="form-group">
-              <label for="available" class="form-label">Available</label>
-              <input
-                id="available"
-                name="available"
-                value="{{ book.available ? 'Yes' : 'No' }}"
-                class="form-control"
-                type="text"
-                readonly
-              />
+      </svg>
+      Back
+    </button>
+    <div class="container text-center my-5">
+      <div class="row">
+        <div class="col-md-6 order-md-first">
+          <img
+            class="card-img-top"
+            src="{{ book.image_url }}"
+            alt="Book cover"
+            style="height: 490px; object-fit: cover"
+          />
+        </div>
+        <div class="col-md-6">
+          <div class="card" style="width: 100%">
+            <div class="card-body">
+              <div class="form-group">
+                <label for="director" class="form-label">Director</label>
+                <input
+                  id="director"
+                  name="director"
+                  value="{{ book.author }}"
+                  class="form-control"
+                  type="text"
+                  readonly
+                />
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="title" class="form-label">Title</label>
+                <input
+                  id="title"
+                  name="title"
+                  value="{{ book.title }}"
+                  class="form-control"
+                  type="text"
+                  readonly
+                />
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="gender" class="form-label">Gender</label>
+                <input
+                  id="gender"
+                  name="gender"
+                  value="{{ book.gender }}"
+                  class="form-control"
+                  type="text"
+                  readonly
+                />
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="releaseDate" class="form-label">Release Date</label>
+                <input
+                  id="releaseDate"
+                  name="releaseDate"
+                  value="{{ book.release_date }}"
+                  class="form-control"
+                  type="text"
+                  readonly
+                />
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="available" class="form-label">Available</label>
+                <input
+                  id="available"
+                  name="available"
+                  value="{{ book.available ? 'Yes' : 'No' }}"
+                  class="form-control"
+                  type="text"
+                  readonly
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row justify-content-center mt-3">
-        <div class="col-md-8">
-          <div class="list-group">
-            <div class="row" style=" margin-left: 28%;">
-              <button (click)="showComments()" style="width: 160px; margin: 2%;" class="btn btn-outline-primary">
-                Show Comments
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
-                  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                </svg>
-              </button>
-              <br>
-              @if (isLogin()) {
-              <button (click)="showAddComment()" style="width: 160px; margin: 2%;" class="btn btn-outline-primary">
-                Add a review
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-plus" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5"/>
-                  <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/>
-                </svg>
-              </button>
-              } 
+        <div class="row justify-content-center mt-3">
+          <div class="col-md-8">
+            <div class="list-group">
+              <div class="row" style=" margin-left: 28%;">
+                <button (click)="showComments()" style="width: 160px; margin: 2%;" class="btn btn-outline-primary">
+                  Show Comments
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                  </svg>
+                </button>
+                <br>
+                @if (isLogin()) {
+                <button (click)="showAddComment()" style="width: 160px; margin: 2%;" class="btn btn-outline-primary">
+                  Add a review
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-plus" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5"/>
+                    <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z"/>
+                  </svg>
+                </button>
+                } 
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+}
+
 
