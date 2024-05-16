@@ -9,15 +9,17 @@
     <th>Disactivated</th>
   </tr>
   @for (user of users; track user.user_id) {
-  <tr>
-    <td>{{ user.name }}</td>
-    <td>{{ user.last_name }}</td>
-    <td>{{ user.email }}</td>
-    <td>{{ user.username }}</td>
-    <td>{{ user.address }}</td>
-    <td><a type="button" class="btn btn-outline-warning" routerLink="/users/editUsers/{{user.user_id}}">Modify user</a></td>
-    <td><button class="btn btn-outline-danger" (click)="disactivatedUser(user.user_id)">Disactivated user</button></td>
-  </tr>
+    @if (user.activated === true) {
+      <tr>
+        <td>{{ user.name }}</td>
+        <td>{{ user.last_name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.address }}</td>
+        <td><a type="button" class="btn btn-outline-warning" routerLink="/users/editUsers/{{user.user_id}}">Modify user</a></td>
+        <td><button class="btn btn-outline-danger" (click)="disactivatedUser(user.user_id)">Disactivated user</button></td>
+      </tr>
+    }
   }
 </table>
 
