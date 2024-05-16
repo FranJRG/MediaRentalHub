@@ -31,9 +31,9 @@ export class MovieFormComponent {
   //Creamos una película vacía omitiendo el id
   movie:Omit<Movie,"mediaId"> = {
     title:       '',
-    releaseDate:  this.actualYear,
+    release_date:  this.actualYear,
     gender:       '',
-    imageUrl:     '',
+    image_url:     '',
     available:    true,
     stock:        0,
     rentals:      [],
@@ -66,7 +66,7 @@ export class MovieFormComponent {
           this.movie = data;
           this.myForm.setValue({ //Asignamos los valores del formulario a los campos del libro que hemos buscado
             title:this.movie.title,
-            releaseDate:this.movie.releaseDate,
+            releaseDate:this.movie.release_date,
             imageUrl:null,
             gender:this.movie.gender,
             director:this.movie.director,
@@ -88,10 +88,10 @@ export class MovieFormComponent {
           this.imageUrl = imageUrl;
           const {...movie} = this.myForm.value; //Asignamos los campos del formulario a la película
           this.movie = movie;
-          this.movie.imageUrl = imageUrl; 
+          this.movie.image_url = imageUrl; 
           this.movieService.postMovie(this.movie).subscribe({
             next: (data) => {
-              data.mediaId = this.id;
+              data.media_id = this.id;
               Swal.fire({ //Mensaje de éxito en caso de que la pelicula se suba exitosamente
                 title: "Good job!",
                 text: "Movie added!",
@@ -129,7 +129,7 @@ export class MovieFormComponent {
           this.imageUrl = imageUrl;
           const {...movie} = this.myForm.value; //Asignamos los valores a la pelicula
           this.movie = movie;
-          this.movie.imageUrl = imageUrl; 
+          this.movie.image_url = imageUrl; 
           this.movieService.putMovie(this.movie,this.id).subscribe({ //Editamos la pelicula
             next: (data) => {
               Swal.fire({ //Mensaje de éxito en caso de edición satisfactoria

@@ -31,9 +31,9 @@ export class BookFormComponent implements OnInit{
   //Creamos un libro vacío omitiendo el id
   book:Omit<Book,"mediaId"> = {
     title:       '',
-    releaseDate:  this.actualYear,
+    release_date:  this.actualYear,
     gender:       '',
-    imageUrl:     '',
+    image_url:     '',
     available:    true,
     stock:        0,
     rentals:      [],
@@ -95,7 +95,7 @@ export class BookFormComponent implements OnInit{
           this.book = data;
           this.myForm.setValue({ //Asignamos los valores del formulario a los campos del libro que hemos buscado
             title:this.book.title,
-            releaseDate:this.book.releaseDate,
+            releaseDate:this.book.release_date,
             imageUrl:null,
             gender:this.book.gender,
             author:this.book.author,
@@ -117,7 +117,7 @@ export class BookFormComponent implements OnInit{
           this.imageUrl = imageUrl; // La establecemos
           const {...book} = this.myForm.value; //Asignamos el libro
           this.book = book;
-          this.book.imageUrl = imageUrl; 
+          this.book.image_url = imageUrl; 
           this.bookService.putBook(this.book,this.id).subscribe({ //Actualizamos el libro
             next: (data) => {
               Swal.fire({ //Mostramos mensaje de éxito si es válido
@@ -159,7 +159,7 @@ export class BookFormComponent implements OnInit{
           this.imageUrl = imageUrl;
           const {...book} = this.myForm.value; // Asignamos el libro a los campos del formulario
           this.book = book;
-          this.book.imageUrl = imageUrl; 
+          this.book.image_url = imageUrl; 
           this.bookService.postBook(this.book).subscribe({
             next: (data) => {
               Swal.fire({ // Mensaje de éxito a la hora de añadir el libro

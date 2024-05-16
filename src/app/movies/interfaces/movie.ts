@@ -1,9 +1,9 @@
 export interface Movie {
-    mediaId?:     number;
+    media_id?:     number;
     title:       string;
-    releaseDate: number;
+    release_date: number;
     gender:      string;
-    imageUrl:    string;
+    image_url:    string;
     available:   boolean;
     stock:       number;
     rentals:     Rental[];
@@ -45,11 +45,11 @@ export interface Main {
 }
 
 export interface Content {
-    mediaId:     number;
+    media_id:     number;
     title:       string;
-    releaseDate: number;
+    release_date: number;
     gender:      string;
-    imageUrl:    string;
+    image_url:    string;
     available:   boolean;
     stock:       number;
     rentals:     null;
@@ -58,11 +58,11 @@ export interface Content {
 }
 
 export interface MovieContent {
-    mediaId:     number;
+    media_id:     number;
     title:       string;
-    releaseDate: number;
+    release_date: number;
     gender:      string;
-    imageUrl:    string;
+    image_url:    string;
     available:   boolean;
     stock:       number;
     rentals:     null;

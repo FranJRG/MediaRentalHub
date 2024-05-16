@@ -96,7 +96,7 @@ export class MoviesCatComponent implements OnInit{
   deleteMovie(id:number){
     this.movieService.deleteMovie(id).subscribe({//Llamamos al método de delete del servicio
       next: () => {
-        this.movies = this.movies.filter(movie => movie.mediaId !== id); //Devolvemos la lista filtrada de peliculas eliminando la que coincida con el id
+        this.movies = this.movies.filter(movie => movie.media_id !== id); //Devolvemos la lista filtrada de peliculas eliminando la que coincida con el id
       }
     })
   }

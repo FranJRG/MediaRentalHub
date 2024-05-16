@@ -63,12 +63,12 @@
   @for (movie of movies; track $index) { @if (movie.available === true) {
 
   <div class="card" style="width: 18rem">
-    <img src="{{ movie.imageUrl }}" class="card-img-top" alt="..." />
+    <img src="{{ movie.image_url }}" class="card-img-top" alt="..." />
     <div class="card-body">
       <h5 class="card-title">{{ movie.title }}</h5>
       <p class="card-text">{{ movie.gender }}</p>
       <a
-        routerLink="/movies/infoMovie/{{ movie.mediaId }}"
+        routerLink="/movies/infoMovie/{{ movie.media_id }}"
         style="margin: 5px"
         class="btn btn-outline-primary"
         >Show info
@@ -90,7 +90,7 @@
       </a>
       @if (isAdmin() === true) {
       <a
-        routerLink="/movies/editMovie/{{ movie.mediaId }}"
+        routerLink="/movies/editMovie/{{ movie.media_id }}"
         style="margin: 5px"
         class="btn btn-outline-warning"
         >Edit
@@ -114,7 +114,7 @@
       <button
         href="#"
         class="btn btn-outline-danger"
-        (click)="deleteMovie(movie.mediaId)"
+        (click)="deleteMovie(movie.media_id)"
         style="margin: 5px"
       >
         <svg
@@ -134,7 +134,7 @@
       <button
         class="btn btn-outline-primary"
         style="margin: 5px;"
-        routerLink="/media/rent/{{ movie.mediaId }}"
+        routerLink="/media/rent/{{ movie.media_id }}"
       >
         Rent this movie!
         <svg
