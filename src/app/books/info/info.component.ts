@@ -171,7 +171,6 @@ export class InfoComponent implements OnInit{
     this.review.rating = rating;
     this.reviewService.postReview(this.review).subscribe({
       next: (data) => {
-        console.log(comment, rating);
         this.review.mediaId = this.id; //Le asignamos el id
         this.review = data; 
         this.book.reviews.push(data); //Añadimos el comentario al array de comentarios que pertenece a libros
