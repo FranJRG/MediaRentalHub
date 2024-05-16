@@ -59,143 +59,148 @@
 </div>
 <app-search-box (onSearch)="search($event)"></app-search-box>
 
-<div class="grid-container" style="margin-right: 9%;">
-  @for (movie of movies; track $index) { @if (movie.available === true) {
-
-  <div class="card" style="width: 18rem">
-    <img src="{{ movie.image_url }}" class="card-img-top" alt="..." />
-    <div class="card-body">
-      <h5 class="card-title">{{ movie.title }}</h5>
-      <p class="card-text">{{ movie.gender }}</p>
-      <a
-        routerLink="/movies/infoMovie/{{ movie.media_id }}"
-        style="margin: 5px"
-        class="btn btn-outline-primary"
-        >Show info
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          class="bi bi-info-circle"
-          viewBox="0 0 16 16"
+@if (page) {
+  
+  <div class="grid-container" style="margin-right: 9%;">
+    @for (movie of movies; track $index) { @if (movie.available === true) {
+  
+    <div class="card" style="width: 18rem">
+      <img src="{{ movie.image_url }}" class="card-img-top" alt="..." />
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.title }}</h5>
+        <p class="card-text">{{ movie.gender }}</p>
+        <a
+          routerLink="/movies/infoMovie/{{ movie.media_id }}"
+          style="margin: 5px"
+          class="btn btn-outline-primary"
+          >Show info
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-info-circle"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+            />
+            <path
+              d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
+            />
+          </svg>
+        </a>
+        @if (isAdmin() === true) {
+        <a
+          routerLink="/movies/editMovie/{{ movie.media_id }}"
+          style="margin: 5px"
+          class="btn btn-outline-warning"
+          >Edit
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-pencil-square"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
+            />
+          </svg>
+        </a>
+        <button
+          href="#"
+          class="btn btn-outline-danger"
+          (click)="deleteMovie(movie.media_id)"
+          style="margin: 5px"
         >
-          <path
-            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
-          />
-          <path
-            d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
-          />
-        </svg>
-      </a>
-      @if (isAdmin() === true) {
-      <a
-        routerLink="/movies/editMovie/{{ movie.media_id }}"
-        style="margin: 5px"
-        class="btn btn-outline-warning"
-        >Edit
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          class="bi bi-pencil-square"
-          viewBox="0 0 16 16"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-trash-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
+            />
+          </svg>
+        </button>
+        } @if (isLogin() === true) {
+        <button
+          class="btn btn-outline-primary"
+          style="margin: 5px;"
+          routerLink="/media/rent/{{ movie.media_id }}"
         >
-          <path
-            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
-          />
-          <path
-            fill-rule="evenodd"
-            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
-          />
-        </svg>
-      </a>
-      <button
-        href="#"
-        class="btn btn-outline-danger"
-        (click)="deleteMovie(movie.media_id)"
-        style="margin: 5px"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          class="bi bi-trash-fill"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
-          />
-        </svg>
-      </button>
-      } @if (isLogin() === true) {
-      <button
-        class="btn btn-outline-primary"
-        style="margin: 5px;"
-        routerLink="/media/rent/{{ movie.media_id }}"
-      >
-        Rent this movie!
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          class="bi bi-cart-plus-fill"
-          viewBox="0 0 16 16"
-        >
-          <path
-            d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"
-          />
-        </svg>
-      </button>
-      }
+          Rent this movie!
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-cart-plus-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"
+            />
+          </svg>
+        </button>
+        }
+      </div>
     </div>
+    } }
   </div>
-  } }
-</div>
-
-<div class="pagination-container">
-  Total Items: <a>{{ totalItems }}</a>
-  @if (pageNumber > 1) {
-  <a (click)="setPage(1, sortField, order)" href="javascript:void(0)">First</a>
-  }@else {
-  <span class="disabled">First</span>
-  } @if (pageNumber > 1) {
-  <a
-    (click)="setPage(page.pageable.pageNumber, sortField, order)"
-    href="javascript:void(0)"
-    >Previous</a
-  >
-  }@else {
-  <span class="disabled">Previous</span>
-  } @for (i of getPageNumbers(); track $index) {
-  <span>
+  
+  <div class="pagination-container">
+    Total Items: <a>{{ totalItems }}</a>
+    @if (pageNumber > 1) {
+    <a (click)="setPage(1, sortField, order)" href="javascript:void(0)">First</a>
+    }@else {
+    <span class="disabled">First</span>
+    } @if (pageNumber > 1) {
     <a
-      *ngIf="pageNumber !== i"
-      (click)="setPage(i, sortField, order)"
+      (click)="setPage(page.pageable.pageNumber, sortField, order)"
       href="javascript:void(0)"
-      >{{ i }}</a
+      >Previous</a
     >
-    <span *ngIf="pageNumber === i"
-      ><a class="current-page">{{ i }}</a></span
+    }@else {
+    <span class="disabled">Previous</span>
+    } @for (i of getPageNumbers(); track $index) {
+    <span>
+      <a
+        *ngIf="pageNumber !== i"
+        (click)="setPage(i, sortField, order)"
+        href="javascript:void(0)"
+        >{{ i }}</a
+      >
+      <span *ngIf="pageNumber === i"
+        ><a class="current-page">{{ i }}</a></span
+      >
+      &nbsp;
+    </span>
+    } @if (pageNumber < page.totalPages) {
+    <a (click)="setPage(nextPage(), sortField, order)" href="javascript:void(0)"
+      >Next</a
     >
-    &nbsp;
-  </span>
-  } @if (pageNumber < page.totalPages) {
-  <a (click)="setPage(nextPage(), sortField, order)" href="javascript:void(0)"
-    >Next</a
-  >
-  }@else {
-  <span class="disabled">Next</span>
-  } @if (pageNumber < page.totalPages) {
-  <a
-    (click)="setPage(page.totalPages, sortField, order)"
-    href="javascript:void(0)"
-    >Last</a
-  >
-  }@else {
-  <span class="disabled">Last</span>
-  }
-</div>
+    }@else {
+    <span class="disabled">Next</span>
+    } @if (pageNumber < page.totalPages) {
+    <a
+      (click)="setPage(page.totalPages, sortField, order)"
+      href="javascript:void(0)"
+      >Last</a
+    >
+    }@else {
+    <span class="disabled">Last</span>
+    }
+  </div>
+  
+}
+
