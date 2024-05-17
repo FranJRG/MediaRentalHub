@@ -9,13 +9,13 @@ import { ReviewService } from '../../shared/services/review.service';
 import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
-  selector: 'app-info',
+  selector: 'app-info:not(p)',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './info.component.html',
-  styleUrl: './info.component.css',
+  templateUrl: './info.movie.component.html',
+  styleUrl: './info.movie.component.css',
 })
-export class InfoComponent implements OnInit {
+export class InfoMovieComponent implements OnInit {
 
   //Obtenemos el id de la ruta
   @Input()id: number = 0;

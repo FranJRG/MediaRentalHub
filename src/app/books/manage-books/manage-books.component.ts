@@ -1,76 +1,57 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { MovieService } from '../services/movie.service';
-import { Main, Content } from '../interfaces/movie';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../auth/services/auth.service';
-import { SearchBoxComponent } from '../search-box/search-box.component';
+import { Component, Input } from '@angular/core';
 import Swal from 'sweetalert2';
+import { Content, Main } from '../interfaces/book';
+import { BookService } from '../services/book.service';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { SearchBoxComponent } from '../search-box/search-box.component';
 
 @Component({
-  selector: 'app-movies-cat',
+  selector: 'app-manage-books',
   standalone: true,
-  imports: [RouterLink,CommonModule,FormsModule,SearchBoxComponent],
-  templateUrl: './movies-cat.component.html',
-  styleUrl: './movies-cat.component.css'
+  imports: [CommonModule, RouterLink, SearchBoxComponent],
+  templateUrl: './manage-books.component.html',
+  styleUrl: './manage-books.component.css'
 })
-export class MoviesCatComponent implements OnInit{
-  
-  //Creamos las variables necesarias para poder hacer el páginado
+export class ManageBooksComponent {
+
   page!:Main;
-  movies!:Content[];  
+  books!:Content[];
   @Input() title:string="";
 
   pageNumber:number = 1;
   totalItems:number = 0;
   sortField:string = "mediaId";
   order:boolean = false;
-
-  constructor(private movieService:MovieService,
-    private authService:AuthService){}
-
-  //Método para establecer la página en la que nos encontremos
+  
+  constructor(private bookService:BookService){}
+  
   setPage(pageNumber:number, sortField:string, order:boolean){
     let url:string = `?pageNumber=${pageNumber}&&sortField=${sortField}&&order=${order}`;//Creamos la url básica para establecer la página
     this.pageNumber = pageNumber; //Le decimos que este pageNumber será igual al principal
     if(this.title != undefined ) { //Si el título existe (Buscamos algo en la barra de búsqueda)
       url = `${url}&&title=${this.title}`//Le añadimos el titulo a la url para filtrar
     }
-    this.movieService.getMovies(url).subscribe({//Hacemos el getMovies de forma páginada
+    this.bookService.getBooks(url).subscribe({//Hacemos el getBooks de forma páginada
       next: (data: any) => {
         this.page = data;
         this.totalItems = data.totalElements;
-        this.movies = data.content;
-        console.log(data.content)
-        console.log(this.movies);
+        this.books = data.content;
       },
       error: (err) => {
         Swal.fire({
           icon: 'error',
           title: 'Not found',
-          text: 'Sorry this movie is not available yet', //Si la pelicula no se encuentra mandamos un mensaje de error
+          text: 'Sorry this movie is not available yet', //Si el libro no se encuentra mandamos un mensaje de error
         });
       }
     });
   }
 
-  //Método que creamos para dar funciones según tu rol en la página
-  isAdmin():boolean{
-    return this.authService.isAdmin();
-  }
-
-  //Método que creamos para dar funciones según tu status en la página
-  isLogin():boolean{
-    return this.authService.isLogin();
-  }
-
-  //Cargamos la función setPage para ver los libros
   ngOnInit(): void {
     this.setPage(this.pageNumber,this.sortField,this.order);
   }
 
-  //Establecemos el orden por que queremos ver los libros
   setOrder(order:boolean):boolean{
     return this.order=order;
   }
@@ -98,6 +79,26 @@ export class MoviesCatComponent implements OnInit{
   search(title:string){
     this.title = title; //Asignamos el titulo al que recibe la funcion
     this.setPage(this.pageNumber,this.sortField,this.order); //Le pasamos el título a la función para filtrar buscar por título
+  }
+
+  deleteBook(id:number){
+    this.bookService.deleteBook(id).subscribe({
+      next : () => {
+        this.books.filter(book => id !== book.media_id)
+        Swal.fire({
+          icon:'success',
+          title:'Deleted',
+          text:'Movie delete success'
+        })
+      },
+      error : (err) => {
+        Swal.fire({
+          title:'Error',
+          text:'Error' + err.message,
+          icon:'error'
+        })
+      } 
+    })
   }
 
 }
