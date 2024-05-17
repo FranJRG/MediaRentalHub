@@ -4,6 +4,7 @@ import { InfoComponent } from "./info/info.component";
 import { MovieFormComponent } from "./movie-form/movie-form.component";
 import { adminGuard } from "../shared/guards/admin.guard";
 import { jwtGuard } from "../shared/guards/jwt.guard";
+import { ManageMoviesComponent } from "./manage-movies/manage-movies.component";
 
 
 export const routes:Routes = [
@@ -23,6 +24,11 @@ export const routes:Routes = [
     {
         path:'editMovie/:id',
         component:MovieFormComponent,
+        canMatch: [adminGuard]
+    },
+    {
+        path:'manageMovies',
+        component:ManageMoviesComponent,
         canMatch: [adminGuard]
     }
 ]
