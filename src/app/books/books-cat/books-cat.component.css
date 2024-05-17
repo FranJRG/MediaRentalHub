@@ -146,6 +146,10 @@
   height: 45px;
 }
 
+.icon-link > .bi {
+  width: 25px !important;
+  height: 25px !important;
+}
 
 @media only screen and (max-width: 768px) {
   .grid-container {
@@ -173,5 +177,3 @@
   }
 
 }
-
-

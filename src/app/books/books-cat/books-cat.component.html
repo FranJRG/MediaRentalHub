@@ -4,156 +4,130 @@
 </div>
 
 <div style="margin-bottom: -3%; margin-left: 8.2%;" class="select-container">
-  <select
-    [(ngModel)]="sortField"
-    (change)="setPage(pageNumber, sortField, order)"
-    class="custom-select"
-  >
-    Order by
-    <option value="mediaId">MediaId</option>
-    <option value="gender">Gender</option>
-    <option value="title">Title</option>
-    <option value="author">Author</option>
-  </select>
+  <button style="width: 15%;" class="customButton" (click)="setPage(pageNumber, 'mediaId', order)">Order by Antiquity</button>
+  <button style="width: 15%;" class="customButton" (click)="setPage(pageNumber, 'gender', order)">Order by Gender</button>
+  <button style="width: 15%;" class="customButton" (click)="setPage(pageNumber, 'title', order)">Order by Title</button>
 
   <div class="button-container">
     @if (order === false) {
     <button
-      class="customButton"
-      (click)="setPage(pageNumber, sortField, setOrder(true))"
+    class="customButton"
+    (click)="setPage(pageNumber, sortField, setOrder(true))"
     >
-      Asc
-      <svg
+    Asc
+    <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
         fill="currentColor"
         class="bi bi-sort-up"
         viewBox="0 0 16 16"
-      >
+        >
         <path
           d="M3.5 12.5a.5.5 0 0 1-1 0V3.707L1.354 4.854a.5.5 0 1 1-.708-.708l2-1.999.007-.007a.5.5 0 0 1 .7.006l2 2a.5.5 0 1 1-.707.708L3.5 3.707zm3.5-9a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M7.5 6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1z"
         />
       </svg>
     </button>
-    }@else {
+  }@else {
     <button
-      class="customButton"
+    class="customButton"
       (click)="setPage(pageNumber, sortField, setOrder(false))"
-    >
+      >
       Desc
       <svg
-        (click)="setOrder(false)"
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-sort-down-alt"
-        viewBox="0 0 16 16"
+      (click)="setOrder(false)"
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-sort-down-alt"
+      viewBox="0 0 16 16"
       >
-        <path
-          d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5"
-        />
-      </svg>
-    </button>
-    }
+      <path
+      d="M3.5 3.5a.5.5 0 0 0-1 0v8.793l-1.146-1.147a.5.5 0 0 0-.708.708l2 1.999.007.007a.497.497 0 0 0 .7-.006l2-2a.5.5 0 0 0-.707-.708L3.5 12.293zm4 .5a.5.5 0 0 1 0-1h1a.5.5 0 0 1 0 1zm0 3a.5.5 0 0 1 0-1h3a.5.5 0 0 1 0 1zm0 3a.5.5 0 0 1 0-1h5a.5.5 0 0 1 0 1zM7 12.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5"
+      />
+    </svg>
+  </button>
+  }
   </div>
 </div>
+
 <app-search-box (onSearch)="search($event)"></app-search-box>
 
 @if (page) {
-
   <div class="grid-container" style="margin-right: 9%;">
     @for (book of books; track $index) {
       @if (book.available === true) {
-        <div class="card" style="width: 18rem">
-          <img src="{{ book.image_url }}" class="card-img-top" alt="Book image" />
+        <div class="card mb-4" style="width: 18rem; max-height: 25rem;">
+          <img src="{{ book.image_url }}" class="card-img-top" alt="Book cover" />
           <div class="card-body">
             <h5 class="card-title">{{ book.title }}</h5>
             <p class="card-text">{{ book.gender }}</p>
-            <a routerLink="/books/infoBook/{{ book.media_id }}" style="margin: 5px;"  class="btn btn-outline-primary">Show info
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+            <div class="d-flex justify-content-around">
+            <a style="font-size: 20px;" routerLink="/books/infoBook/{{ book.media_id }}" class="icon-link" data-toggle="tooltip" data-placement="top" title="Info movie">
+              Info
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"></path>
+                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"></path>
               </svg>
             </a>
-            @if (isAdmin() === true && isLogin() === true) {
-      
-              <a routerLink="/books/editBook/{{book.media_id}}" style="margin: 5px;"  class="btn btn-outline-warning">Edit
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+            @if (isLogin() === true) {
+              <a style="font-size: 20px;" routerLink="/media/rent/{{book.media_id}}" class="icon-link" data-toggle="tooltip" data-placement="top" title="Rent this media">
+                Rent
+                <svg xmlns="http://www.w3.org/2000/svg" width="3rem" height="3rem" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"></path>
                 </svg>
               </a>
-              <button href="#" class="btn btn-outline-danger" (click)="deleteBook(book.media_id)"  style="margin: 5px;">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-trash-fill"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"
-                  />
-                </svg>
-              </button>
             }
-            @if (isLogin()===true) {
-              <button routerLink="/media/rent/{{book.media_id}}"  style="margin: 5px" class="btn btn-outline-primary">Rent this book!
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
-                  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
-                </svg>
-              </button>
-            }
+            </div>
           </div>
+          <p class="text-center">Author: <b>{{book.author}}</b></p>
         </div>
       }
     }
   </div>
-  <div class="pagination-container">
-    Total Items: <a>{{ totalItems }}</a>
-    @if (pageNumber > 1) {
-      <a (click)="setPage(1, sortField, order)" href="javascript:void(0)">First</a>
-    }@else {
-      <span class="disabled">First</span>
-    } @if (pageNumber > 1) {
+<div class="pagination-container">
+  Total Items: <a>{{ totalItems }}</a>
+  @if (pageNumber > 1) {
+    <a (click)="setPage(1, sortField, order)" href="javascript:void(0)">First</a>
+  }@else {
+    <span class="disabled">First</span>
+  } @if (pageNumber > 1) {
+    <a
+      (click)="setPage(page.pageable.pageNumber, sortField, order)"
+      href="javascript:void(0)"
+      >Previous</a
+    >
+  }@else {
+    <span class="disabled">Previous</span>
+  } @for (i of getPageNumbers(); track $index) {
+    <span>
       <a
-        (click)="setPage(page.pageable.pageNumber, sortField, order)"
+        *ngIf="pageNumber !== i"
+        (click)="setPage(i, sortField, order)"
         href="javascript:void(0)"
-        >Previous</a
+        >{{ i }}</a
       >
-    }@else {
-      <span class="disabled">Previous</span>
-    } @for (i of getPageNumbers(); track $index) {
-      <span>
-        <a
-          *ngIf="pageNumber !== i"
-          (click)="setPage(i, sortField, order)"
-          href="javascript:void(0)"
-          >{{ i }}</a
-        >
-        <span *ngIf="pageNumber === i"
-          ><a class="current-page">{{ i }}</a></span
-        >
-        &nbsp;
-      </span>
-    } @if (pageNumber < page.totalPages) {
-      <a (click)="setPage(nextPage(), sortField, order)" href="javascript:void(0)"
-        >Next</a
+      <span *ngIf="pageNumber === i"
+        ><a class="current-page">{{ i }}</a></span
       >
-    }@else {
-      <span class="disabled">Next</span>
-    } @if (pageNumber < page.totalPages) {
-      <a
-        (click)="setPage(page.totalPages, sortField, order)"
-        href="javascript:void(0)"
-        >Last</a
-      >
-    }@else {
-      <span class="disabled">Last</span>
-    }
-  </div>
-  
+      &nbsp;
+    </span>
+  } @if (pageNumber < page.totalPages) {
+    <a (click)="setPage(nextPage(), sortField, order)" href="javascript:void(0)"
+      >Next</a
+    >
+  }@else {
+    <span class="disabled">Next</span>
+  } @if (pageNumber < page.totalPages) {
+    <a
+      (click)="setPage(page.totalPages, sortField, order)"
+      href="javascript:void(0)"
+      >Last</a
+    >
+  }@else {
+    <span class="disabled">Last</span>
+  }
+</div>
 }
+  

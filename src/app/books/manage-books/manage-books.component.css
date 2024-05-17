@@ -1,0 +1,90 @@
+.pagination-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination-container a {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0 5px;
+  color: #333;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.pagination-container a:hover {
+  background-color: #f0f0f0;
+}
+
+.pagination-container span {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0 5px;
+  color: #aaa;
+}
+
+.pagination-container a.current-page {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table tr:hover {
+  background-color: #ddd;
+}
+
+.manage-books-container {
+  text-align: center;
+}
+.manage-books-container .icon-link {
+  display: inline-block;
+  margin-top: 10px;
+}
+.icon-link > .bi {
+  width: 4em !important;
+  height: 4em !important;
+  margin: 10px !important;
+}
+
+.manage-books-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 55px;
+  font-weight: bold;
+  color: #4a90e2;
+  margin-bottom: 10px;
+  margin: 0;
+  padding-right: 10px;
+}
+
+
+.search-container {
+  text-align: center;
+  margin-top: 20px;
+  margin-right: 31% !important;
+}

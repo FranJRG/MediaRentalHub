@@ -1,36 +1,31 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { Content, Main, Movie } from '../interfaces/movie';
 import { MovieService } from '../services/movie.service';
-import { Main, Content } from '../interfaces/movie';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../auth/services/auth.service';
-import { SearchBoxComponent } from '../search-box/search-box.component';
 import Swal from 'sweetalert2';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { SearchBoxComponent } from '../search-box/search-box.component';
 
 @Component({
-  selector: 'app-movies-cat',
+  selector: 'app-manage-movies',
   standalone: true,
-  imports: [RouterLink,CommonModule,FormsModule,SearchBoxComponent],
-  templateUrl: './movies-cat.component.html',
-  styleUrl: './movies-cat.component.css'
+  imports: [CommonModule, RouterLink,SearchBoxComponent],
+  templateUrl: './manage-movies.component.html',
+  styleUrl: './manage-movies.component.css'
 })
-export class MoviesCatComponent implements OnInit{
+export class ManageMoviesComponent implements OnInit{
   
-  //Creamos las variables necesarias para poder hacer el páginado
   page!:Main;
-  movies!:Content[];  
+  movies!:Content[];
   @Input() title:string="";
 
   pageNumber:number = 1;
   totalItems:number = 0;
   sortField:string = "mediaId";
   order:boolean = false;
-
-  constructor(private movieService:MovieService,
-    private authService:AuthService){}
-
-  //Método para establecer la página en la que nos encontremos
+  
+  constructor(private movieService:MovieService){}
+  
   setPage(pageNumber:number, sortField:string, order:boolean){
     let url:string = `?pageNumber=${pageNumber}&&sortField=${sortField}&&order=${order}`;//Creamos la url básica para establecer la página
     this.pageNumber = pageNumber; //Le decimos que este pageNumber será igual al principal
@@ -55,22 +50,10 @@ export class MoviesCatComponent implements OnInit{
     });
   }
 
-  //Método que creamos para dar funciones según tu rol en la página
-  isAdmin():boolean{
-    return this.authService.isAdmin();
-  }
-
-  //Método que creamos para dar funciones según tu status en la página
-  isLogin():boolean{
-    return this.authService.isLogin();
-  }
-
-  //Cargamos la función setPage para ver los libros
   ngOnInit(): void {
     this.setPage(this.pageNumber,this.sortField,this.order);
   }
 
-  //Establecemos el orden por que queremos ver los libros
   setOrder(order:boolean):boolean{
     return this.order=order;
   }
@@ -98,6 +81,26 @@ export class MoviesCatComponent implements OnInit{
   search(title:string){
     this.title = title; //Asignamos el titulo al que recibe la funcion
     this.setPage(this.pageNumber,this.sortField,this.order); //Le pasamos el título a la función para filtrar buscar por título
+  }
+
+  deleteMovie(id:number){
+    this.movieService.deleteMovie(id).subscribe({
+      next : () => {
+        this.movies.filter(movie => id !== movie.media_id)
+        Swal.fire({
+          icon:'success',
+          title:'Deleted',
+          text:'Movie delete success'
+        })
+      },
+      error : (err) => {
+        Swal.fire({
+          title:'Error',
+          text:'Error' + err.message,
+          icon:'error'
+        })
+      } 
+    })
   }
 
 }

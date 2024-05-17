@@ -9,7 +9,7 @@ import { ReviewService } from '../../shared/services/review.service';
 import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
-  selector: 'app-info',
+  selector: 'app-info:not(p)',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './info.component.html',
