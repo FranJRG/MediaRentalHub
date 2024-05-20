@@ -94,6 +94,7 @@ export class BookFormComponent implements OnInit{
       this.bookService.getBook(this.id).subscribe({
         next:(data)=>{
           this.book = data;
+          console.log(this.book);
           this.myForm.setValue({ //Asignamos los valores del formulario a los campos del libro que hemos buscado
             title:this.book.title,
             releaseDate:this.book.release_date,
