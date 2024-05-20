@@ -96,7 +96,7 @@ export class BookFormComponent implements OnInit{
           this.myForm.setValue({ //Asignamos los valores del formulario a los campos del libro que hemos buscado
             title:this.book.title,
             releaseDate:this.book.release_date,
-            imageUrl:null,
+            image_url:null,
             gender:this.book.gender,
             author:this.book.author,
             price: this.book.price === null ? 0 : this.book.price,
