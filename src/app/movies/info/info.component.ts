@@ -15,7 +15,8 @@ import { AuthService } from '../../auth/services/auth.service';
   templateUrl: './info.component.html',
   styleUrl: './info.component.css'
 })
-export class InfoMovieComponent implements OnInit {
+
+export class InfoComponent implements OnInit {
 
   //Obtenemos el id de la ruta
   @Input()id: number = 0;
