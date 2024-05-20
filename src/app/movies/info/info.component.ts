@@ -12,8 +12,8 @@ import { AuthService } from '../../auth/services/auth.service';
   selector: 'app-info:not(p)',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './info.movie.component.html',
-  styleUrl: './info.movie.component.css'
+  templateUrl: './info.component.html',
+  styleUrl: './info.component.css'
 })
 export class InfoMovieComponent implements OnInit {
 

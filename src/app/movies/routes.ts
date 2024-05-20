@@ -1,6 +1,6 @@
 import { Routes } from "@angular/router";
 import { MoviesCatComponent } from "./movies-cat/movies-cat.component";
-import { InfoComponent } from "./info/info.movie.component";
+import { InfoComponent } from "./info/info.component";
 import { MovieFormComponent } from "./movie-form/movie-form.component";
 import { adminGuard } from "../shared/guards/admin.guard";
 import { jwtGuard } from "../shared/guards/jwt.guard";
