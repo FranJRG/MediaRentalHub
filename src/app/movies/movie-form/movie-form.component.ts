@@ -67,7 +67,7 @@ export class MovieFormComponent {
           this.myForm.setValue({ //Asignamos los valores del formulario a los campos del libro que hemos buscado
             title:this.movie.title,
             releaseDate:this.movie.release_date,
-            imageUrl:null,
+            image_url:null,
             gender:this.movie.gender,
             director:this.movie.director,
             price: this.movie.price === null ? 0 : this.movie.price,
