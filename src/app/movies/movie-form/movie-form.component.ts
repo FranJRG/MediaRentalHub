@@ -19,7 +19,7 @@ export class MovieFormComponent {
   @Input()id = 0;
 
   //Creamos una imagen vacía
-  imageUrl:string = '';
+  image_url:string = '';
 
   constructor(private movieService:MovieService,
     private uploadService:UploadService,
@@ -47,7 +47,7 @@ export class MovieFormComponent {
     title:['',Validators.required],
     releaseDate:[this.actualYear],
     gender:['',Validators.required],
-    imageUrl:[null],
+    image_url:[null],
     director:['',Validators.required],
     price:[null,Validators.required],
     available:[true],
@@ -82,16 +82,18 @@ export class MovieFormComponent {
   //Método para añadir una película
   addMovie(){
     if (this.myForm.valid) {
-      this.uploadService.uploadFile(this.imageUrl).subscribe({
+      this.uploadService.uploadFile(this.image_url).subscribe({
         next: (response:any) => {
-          const imageUrl = response.secure_url; //Asignamos la url de la imagen a la imagen creada de tipo string
-          this.imageUrl = imageUrl;
+          const image_url = response.secure_url; //Asignamos la url de la imagen a la imagen creada de tipo string
+          this.image_url = image_url;
+          console.log(this.image_url);
           const {...movie} = this.myForm.value; //Asignamos los campos del formulario a la película
           this.movie = movie;
-          this.movie.image_url = imageUrl; 
+          this.movie.image_url = this.image_url; 
+          console.log(this.movie)
           this.movieService.postMovie(this.movie).subscribe({
             next: (data) => {
-              data.media_id = this.id;
+              data.mediaId = this.id;
               Swal.fire({ //Mensaje de éxito en caso de que la pelicula se suba exitosamente
                 title: "Good job!",
                 text: "Movie added!",
@@ -123,13 +125,14 @@ export class MovieFormComponent {
   //Método para editar una película
   editMovie(){
     if (this.myForm.valid) {
-      this.uploadService.uploadFile(this.imageUrl).subscribe({ //Subimos la imagen
+      this.uploadService.uploadFile(this.image_url).subscribe({ //Subimos la imagen
         next: (response:any) => {
-          const imageUrl = response.secure_url; //Asignamos la url en formato string
-          this.imageUrl = imageUrl;
+          const image_url = response.secure_url; //Asignamos la url en formato string
+          this.image_url = image_url;
+          console.log(this.image_url);
           const {...movie} = this.myForm.value; //Asignamos los valores a la pelicula
           this.movie = movie;
-          this.movie.image_url = imageUrl; 
+          this.movie.image_url = image_url; 
           this.movieService.putMovie(this.movie,this.id).subscribe({ //Editamos la pelicula
             next: (data) => {
               Swal.fire({ //Mensaje de éxito en caso de edición satisfactoria
@@ -167,8 +170,8 @@ export class MovieFormComponent {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = (e: any) => {
-        console.log('Got here: ', typeof(e.target.result));
-        this.imageUrl = e.target.result;
+        console.log('Got here: ', typeof(e.target.result), e.target.result);
+        this.image_url = e.target.result;
       }
       reader.readAsDataURL(input.files[0]);
     }

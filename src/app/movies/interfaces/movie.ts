@@ -1,5 +1,5 @@
 export interface Movie {
-    media_id?:     number;
+    mediaId?:     number;
     title:       string;
     release_date: number;
     gender:      string;

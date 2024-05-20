@@ -1,3 +1,4 @@
+
 import { Component, Input, OnInit } from '@angular/core';
 import { Book, Review } from '../interfaces/book';
 import { BookService } from '../services/book.service';
@@ -56,7 +57,9 @@ export class InfoComponent implements OnInit{
     this.review.mediaId = this.id;
     this.bookService.getBook(this.id).subscribe(
       (data) => {
+        console.log(data);
         this.book = data;
+        console.log(this.book);
       }
     );
   }
@@ -171,6 +174,7 @@ export class InfoComponent implements OnInit{
     this.review.rating = rating;
     this.reviewService.postReview(this.review).subscribe({
       next: (data) => {
+        console.log(comment, rating);
         this.review.mediaId = this.id; //Le asignamos el id
         this.review = data; 
         this.book.reviews.push(data); //Añadimos el comentario al array de comentarios que pertenece a libros

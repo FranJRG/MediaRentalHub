@@ -12,10 +12,10 @@ import { AuthService } from '../../auth/services/auth.service';
   selector: 'app-info:not(p)',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './info.component.html',
-  styleUrl: './info.component.css',
+  templateUrl: './info.movie.component.html',
+  styleUrl: './info.movie.component.css'
 })
-export class InfoComponent implements OnInit {
+export class InfoMovieComponent implements OnInit {
 
   //Obtenemos el id de la ruta
   @Input()id: number = 0;
@@ -29,7 +29,7 @@ export class InfoComponent implements OnInit {
     mediaId: this.id,
     comment: '',
     rating: 0,
-    creation_date: this.date
+    creation_date: this.date,
   };
 
   //Variable para mostrar y ocultar la sección de añadir comentarios
@@ -56,6 +56,7 @@ export class InfoComponent implements OnInit {
     this.review.mediaId = this.id;
     this.movieService.getMovie(this.id).subscribe((data) => {
       this.movie = data;
+      console.log(this.movie);
     });
   }
 
@@ -145,7 +146,6 @@ export class InfoComponent implements OnInit {
       title: 'Comments',
       html: commentsHtml,
       confirmButtonText: 'Close',
-      confirmButtonColor: '#428de661',
       didOpen: () => {
         for (const review of this.movie.reviews) {
           if (review.userId === this.getUserId()) {

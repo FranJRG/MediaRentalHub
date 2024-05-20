@@ -1,47 +1,47 @@
 <body>
-    <div class="container">
-      <input type="checkbox" id="check" />
-      <div class="login form">
-        <header>{{id != undefined && id != 0 ? 'Edit book' : 'Add book'}}</header>
-        <form [formGroup]="myForm" (ngSubmit)="addBook()">
-          <label>Title <span>*</span></label>
-          <input type="text" formControlName="title" placeholder="Title" />
-          @if (invalidField('title')) {
-            <small style="color: red;">Title is required</small>
-          }
-          <br>
-          <label>Gender <span>*</span></label>
-          <input type="text" formControlName="gender" placeholder="Gender" />
-          @if (invalidField('gender')) {
-            <small style="color: red;">Gender is required</small>
-          }
-          <br>
-          <label>Director <span>*</span></label>
-          <input type="text" formControlName="author" placeholder="Author" />
-          @if (invalidField('author')) {
-            <small style="color: red;">Author is required</small>
-          }
-          <br>
-          <label>Price <span>*</span></label>
-          <input type="number" min="1" step="0.01" formControlName="price" placeholder="Price" />
-          @if (invalidField('price')) {
-            <small style="color: red;">{{priceMessage}}</small>
-          }
-          <br>
-          <label>Stock <span>*</span></label>
-          <input type="number" formControlName="stock" placeholder="Stock" />
-          @if (invalidField('stock')) {
-            <small style="color: red;">{{stockMessage}}</small>
-          }
-          <br>
-          <label>Image</label>
-          <input type="file" id="image" formControlName="imageUrl" (change)="getFile($event)">
-          @if (this.id != 0 && this.id != undefined) {
-            <input type="submit" class="button" value="Edit"/>
-          }@else {
-            <input type="submit" class="button" value="Add"/>
-          }
-        </form>
-      </div>
+  <div class="container">
+    <input type="checkbox" id="check" />
+    <div class="login form">
+      <header>{{id != undefined && id != 0 ? 'Edit book' : 'Add book'}}</header>
+      <form [formGroup]="myForm" (ngSubmit)="addBook()">
+        <label>Title <span>*</span></label>
+        <input type="text" formControlName="title" placeholder="Title" />
+        @if (invalidField('title')) {
+          <small style="color: red;">Title is required</small>
+        }
+        <br>
+        <label>Gender <span>*</span></label>
+        <input type="text" formControlName="gender" placeholder="Gender" />
+        @if (invalidField('gender')) {
+          <small style="color: red;">Gender is required</small>
+        }
+        <br>
+        <label>Director <span>*</span></label>
+        <input type="text" formControlName="author" placeholder="Author" />
+        @if (invalidField('author')) {
+          <small style="color: red;">Author is required</small>
+        }
+        <br>
+        <label>Price <span>*</span></label>
+        <input type="number" min="1" step="0.01" formControlName="price" placeholder="Price" />
+        @if (invalidField('price')) {
+          <small style="color: red;">{{priceMessage}}</small>
+        }
+        <br>
+        <label>Stock <span>*</span></label>
+        <input type="number" formControlName="stock" placeholder="Stock" />
+        @if (invalidField('stock')) {
+          <small style="color: red;">{{stockMessage}}</small>
+        }
+        <br>
+        <label>Image</label>
+        <input type="file" id="image" formControlName="image_url" (change)="getFile($event)">
+        @if (this.id != 0 && this.id != undefined) {
+          <input type="submit" class="button" value="Edit"/>
+        }@else {
+          <input type="submit" class="button" value="Add"/>
+        }
+      </form>
     </div>
+  </div>
 </body>
