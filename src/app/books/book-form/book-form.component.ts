@@ -19,7 +19,7 @@ export class BookFormComponent implements OnInit{
   @Input()id:number = 0;
 
   //Creamos una imagen vacía
-  imageUrl : string = ''
+  image_url : string = ''
 
   constructor(private bookService:BookService,
     private uploadService:UploadService,
@@ -47,7 +47,7 @@ export class BookFormComponent implements OnInit{
     title:['',Validators.required],
     releaseDate:[this.actualYear],
     gender:['',Validators.required],
-    imageUrl:[null],
+    image_url:[null],
     author:['',Validators.required],
     price:[null,[Validators.required,Validators.min(1)]],
     available:[true],
@@ -111,13 +111,13 @@ export class BookFormComponent implements OnInit{
   //Método para editar un libro
   editBook(){
     if (this.myForm.valid) {
-      this.uploadService.uploadFile(this.imageUrl).subscribe({ //Subimos la imagen a cloudinary
+      this.uploadService.uploadFile(this.image_url).subscribe({ //Subimos la imagen a cloudinary
         next: (response:any) => {
-          const imageUrl = response.secure_url; // Asignamos la imagen
-          this.imageUrl = imageUrl; // La establecemos
+          const image_url = response.secure_url; // Asignamos la imagen
+          this.image_url = image_url; // La establecemos
           const {...book} = this.myForm.value; //Asignamos el libro
           this.book = book;
-          this.book.image_url = imageUrl; 
+          this.book.image_url = image_url; 
           this.bookService.putBook(this.book,this.id).subscribe({ //Actualizamos el libro
             next: (data) => {
               Swal.fire({ //Mostramos mensaje de éxito si es válido
@@ -153,15 +153,18 @@ export class BookFormComponent implements OnInit{
   //Método para añadir un libro
   addBook() {
     if (this.myForm.valid) {
-      this.uploadService.uploadFile(this.imageUrl).subscribe({ //Subiremos la imagen a cloudinary
+      this.uploadService.uploadFile(this.image_url).subscribe({ //Subiremos la imagen a cloudinary
         next: (response:any) => {
-          const imageUrl = response.secure_url; //Asignamos la url de la imagen a la imagen en formato string
-          this.imageUrl = imageUrl;
+          const image_url = response.secure_url; //Asignamos la url de la imagen a la imagen en formato string
+          this.image_url = image_url;
+          console.log(this.image_url);
           const {...book} = this.myForm.value; // Asignamos el libro a los campos del formulario
           this.book = book;
-          this.book.image_url = imageUrl; 
+          this.book.image_url = image_url; 
+          console.log(this.book.image_url);
           this.bookService.postBook(this.book).subscribe({
             next: (data) => {
+              console.log(this.book);
               Swal.fire({ // Mensaje de éxito a la hora de añadir el libro
                 title: "Good job!",
                 text: "Book added!",
@@ -201,10 +204,11 @@ export class BookFormComponent implements OnInit{
       var reader = new FileReader();
       reader.onload = (e: any) => {
         console.log('Got here: ', typeof(e.target.result));
-        this.imageUrl = e.target.result;
+        this.image_url = e.target.result;
       }
       reader.readAsDataURL(input.files[0]);
     }
+    console.log(this.image_url);
 
   } 
 }

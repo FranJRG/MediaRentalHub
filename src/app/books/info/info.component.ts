@@ -56,7 +56,9 @@ export class InfoComponent implements OnInit{
     this.review.mediaId = this.id;
     this.bookService.getBook(this.id).subscribe(
       (data) => {
+        console.log(data);
         this.book = data;
+        console.log(this.book);
       }
     );
   }

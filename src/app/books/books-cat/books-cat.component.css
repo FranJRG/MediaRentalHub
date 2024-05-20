@@ -13,7 +13,7 @@
 }
 
 .card {
-  width: 100%;
+  width: 455px;
   height: 250px;
   max-width: 800px;
   display: flex;
@@ -36,6 +36,9 @@
 
 .card-title {
   font-size: 1.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-text {

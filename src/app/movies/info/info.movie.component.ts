@@ -56,6 +56,7 @@ export class InfoMovieComponent implements OnInit {
     this.review.mediaId = this.id;
     this.movieService.getMovie(this.id).subscribe((data) => {
       this.movie = data;
+      console.log(this.movie);
     });
   }
 

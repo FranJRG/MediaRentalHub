@@ -12,7 +12,6 @@ export interface Movie {
     price:       number;
 }
 
-
 export interface Review {
     reviewId: number;
     userId:   number;

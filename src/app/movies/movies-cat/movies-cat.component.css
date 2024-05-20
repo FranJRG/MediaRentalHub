@@ -13,7 +13,7 @@
 }
 
 .card {
-  width: 100%;
+  width: 455px;
   height: 250px;
   max-width: 800px;
   display: flex;
@@ -35,7 +35,12 @@
 }
 
 .card-title {
-  font-size: 1.5rem;
+  font-size: 1.2em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  font-weight: bold;
 }
 
 .card-text {
@@ -167,6 +172,7 @@
   padding: 8px 12px;
   cursor: pointer;
   height: 45px;
+  width: 15%;
 }
 
 .customButton:hover {
@@ -192,7 +198,7 @@
   }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 500px) {
   .grid-container {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
@@ -203,5 +209,14 @@
     margin-top: 20px;
     margin-bottom: 20px;
   }
-
+  .customButton {
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px; 
+    color: #555;
+    padding: 8px 12px;
+    cursor: pointer;
+    height: 35px;
+    width: 50% !important;
+  }
 }
