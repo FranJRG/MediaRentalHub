@@ -198,7 +198,7 @@
   
 }
 
-@media only screen and (max-width: 560px) {
+@media only screen and (max-width: 480px) {
 
   .grid-container {
     display: grid;
@@ -220,7 +220,7 @@
 
   .card{
     height: 100% !important;
-    width: 50% !important;
+    width: 70% !important;
   }
 
   .card-img {
