@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { UserService } from '../../user/services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +18,9 @@ export class AuthService {
     return { ...this._user } 
   }
 
-  constructor(private http:HttpClient, private router:Router) { }
+  constructor(private http:HttpClient, private router:Router, private userService:UserService) { }
 
   storage(resp:LoginResponse){ //Almacenamos el token en el localstorage
-    
     localStorage.setItem('token',resp.token) //Seteamos el localstorage con un token
     this._user = resp.user //Igualamos el usuario a la respuesta que obtenemos;
   }

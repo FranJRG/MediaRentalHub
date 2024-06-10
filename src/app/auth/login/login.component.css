@@ -14,6 +14,7 @@ body{
   position: absolute;
   top: 50%;
   left: 50%;
+  margin-top: 10%;
   transform: translate(-50%,-50%);
   max-width: 430px;
   width: 100%;
@@ -101,4 +102,30 @@ body{
 
 label{
   font-weight: bold;
+}
+
+
+@media only screen and (max-width: 468px) {
+
+  .container {
+    margin: 40% auto !important; /* Incrementar el margen superior en pantallas pequeñas */
+    padding: 1rem !important; /* Ajustar el padding para pantallas pequeñas */
+  }
+
+  .form input {
+    height: 50px !important; /* Reducir la altura de los inputs en pantallas pequeñas */
+    font-size: 15px !important;
+  }
+
+  .form header {
+    font-size: 1.5rem !important;
+  }
+
+  .form input.button {
+    font-size: 1rem !important;
+  }
+
+  .signup {
+    font-size: 15px !important;
+  }
 }
