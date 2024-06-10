@@ -219,7 +219,8 @@
   }
 
   .card{
-    height: 200% !important;
+    height: 100% !important;
+    width: 50% !important;
   }
 
   .card-img {
