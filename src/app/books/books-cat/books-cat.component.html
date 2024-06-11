@@ -59,7 +59,7 @@
     @for (book of books; track $index) {
       @if (book.available === true) {
         <div class="grid-item">
-          <div class="card mb-3">
+          <div class="card mb-3" style="width: 18rem;">
             <div class="row g-0" style="height: 100%;">
               <div class="col-md-4">
                 <img src="{{book.image_url}}" class="img-fluid rounded-start card-img" alt="Book cover">
