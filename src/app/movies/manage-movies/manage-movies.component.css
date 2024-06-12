@@ -104,5 +104,17 @@ h1{
     margin-left: 52% !important;
     margin-top: 0% !important;
   }
+
+  .table-container {
+    overflow-x: scroll; 
+  }
+
+  .table-container table {
+      width: 100%;
+  }
+
+  .table-container th, .table-container td {
+      padding: 8px;
+  }
   
 }
