@@ -5,6 +5,7 @@ import { MovieFormComponent } from "./movie-form/movie-form.component";
 import { adminGuard } from "../shared/guards/admin.guard";
 import { jwtGuard } from "../shared/guards/jwt.guard";
 import { ManageMoviesComponent } from "./manage-movies/manage-movies.component";
+import { validTokenGuard } from "../shared/guards/valid-token.guard";
 
 
 export const routes:Routes = [
@@ -19,16 +20,16 @@ export const routes:Routes = [
     {
         path:'addMovie',
         component:MovieFormComponent,
-        canMatch: [adminGuard]
+        canMatch: [validTokenGuard,adminGuard]
     },
     {
         path:'editMovie/:id',
         component:MovieFormComponent,
-        canMatch: [adminGuard]
+        canMatch: [validTokenGuard,adminGuard]
     },
     {
         path:'manageMovies',
         component:ManageMoviesComponent,
-        canMatch: [adminGuard]
+        canMatch: [validTokenGuard,adminGuard]
     }
 ]

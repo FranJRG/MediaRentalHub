@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { jwtGuard } from './shared/guards/jwt.guard';
 import { ErrorComponent } from './error/error.component';
+import { validTokenGuard } from './shared/guards/valid-token.guard';
 
 export const routes: Routes = [
     {
@@ -15,7 +16,7 @@ export const routes: Routes = [
     {
         path:'users',
         loadChildren : () => import('./user/routes').then(mod => mod.routes),
-        canMatch: [jwtGuard]
+        canMatch: [validTokenGuard,jwtGuard]
     },
     {
         path:'movies',

@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { LoginResponse, User } from '../../user/interfaces/user';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpInterceptorFn } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { UserService } from '../../user/services/user.service';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +67,29 @@ export class AuthService {
     }else{
       return false; //devolvemos false
     }
+  }
+
+  verifyToken():Observable<Boolean>{
+
+    let token = localStorage.getItem('token');
+  
+    if (!token) {
+      return of(false);
+    }
+    
+    token = token.replace("Bearer ","");
+
+    const urlVerify = 'http://localhost:8080/verifyToken';
+
+    const body = {token : token};
+
+    return this.http.post<any>(urlVerify, body).pipe(
+      map(response => {return response.status === "200"}),
+      catchError(err => {
+        console.log(err.error.message);
+        return of(false)
+      })
+    )
   }
   
   //Método para el logout
