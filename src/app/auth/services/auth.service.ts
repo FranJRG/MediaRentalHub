@@ -79,7 +79,7 @@ export class AuthService {
     
     token = token.replace("Bearer ","");
 
-    const urlVerify = 'http://localhost:8080/verifyToken';
+    const urlVerify = 'https://proyectoapi-franjrg.onrender.com/verifyToken';
 
     const body = {token : token};
 
