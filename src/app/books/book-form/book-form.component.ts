@@ -31,7 +31,6 @@ export class BookFormComponent implements OnInit{
   //Creamos un libro vacío omitiendo el id
   book:Omit<BookAdd,"mediaId"> = {
     title:       '',
-    release_date:  this.actualYear,
     gender:       '',
     imageUrl:     '',
     available:    true,
@@ -45,7 +44,6 @@ export class BookFormComponent implements OnInit{
   //Cremos un formulario reactivo con los campos requeridos para crear un libro
   myForm:FormGroup = this.fb.group({
     title:['',Validators.required],
-    releaseDate:[this.actualYear],
     gender:['',Validators.required],
     image_url:[null],
     author:['',Validators.required],
@@ -95,7 +93,6 @@ export class BookFormComponent implements OnInit{
           this.book = data;
           this.myForm.setValue({ //Asignamos los valores del formulario a los campos del libro que hemos buscado
             title:this.book.title,
-            releaseDate:this.book.release_date,
             image_url:null,
             gender:this.book.gender,
             author:this.book.author,
@@ -148,6 +145,8 @@ export class BookFormComponent implements OnInit{
           }
         });
       } else {
+        const { ...book } = this.myForm.value;
+        this.book = book;
         this.bookService.putBook(this.book, this.id).subscribe({
           next: (data) => {
             Swal.fire({
@@ -209,6 +208,8 @@ export class BookFormComponent implements OnInit{
           }
         });
       } else {
+        const { ...book } = this.myForm.value;
+        this.book = book;
         this.bookService.postBook(this.book).subscribe({
           next: (data) => {
             Swal.fire({

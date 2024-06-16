@@ -15,7 +15,6 @@ export interface Book {
 export interface BookAdd {
     media_id?:     number;
     title:       string;
-    release_date: number;
     gender:      string;
     imageUrl:    string;
     available:   boolean;
