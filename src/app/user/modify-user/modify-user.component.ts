@@ -79,11 +79,13 @@ export class ModifyUserComponent implements OnInit {
           })
         },
         error: (err) => {
+          if(err.status != 401){
           Swal.fire({
             title: "Error",
             text: "There was an error updating the user. Please try again later.",
             icon: "error",
           });
+        }
         }
       })
     }

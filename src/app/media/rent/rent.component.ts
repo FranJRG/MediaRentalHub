@@ -127,11 +127,13 @@ export class RentComponent implements OnInit {
           });
         },
         error: (err) => { //Mensaje de error en caso de contener errores
+          if(err.status != 401){
           Swal.fire({
             icon: 'error',
             title:'Rent error',
             text: 'Something went wrong, please try again',
           });
+        }
         },
       });
     }

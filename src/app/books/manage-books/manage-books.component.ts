@@ -39,11 +39,13 @@ export class ManageBooksComponent {
         this.books = data.content;
       },
       error: (err) => {
+        if(err.status != 401){
         Swal.fire({
           icon: 'error',
           title: 'Not found',
           text: 'Sorry this movie is not available yet', //Si el libro no se encuentra mandamos un mensaje de error
         });
+      }
       }
     });
   }

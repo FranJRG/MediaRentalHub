@@ -50,11 +50,13 @@ export class RentalsFormComponent implements OnInit{
         });
       },
       error: (err) => {
+        if(err.status != 401){
         Swal.fire({
           title: 'Failed',
           text: 'Something went wrong',
           icon: 'error',
         });
+      }
       },
     });
   }
