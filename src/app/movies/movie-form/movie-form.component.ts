@@ -44,7 +44,6 @@ export class MovieFormComponent {
   //Cremos un formulario reactivo con los campos requeridos para crear una película
   myForm:FormGroup = this.fb.group({
     title:['',Validators.required],
-    releaseDate:[this.actualYear],
     gender:['',Validators.required],
     image_url:[null],
     director:['',Validators.required],

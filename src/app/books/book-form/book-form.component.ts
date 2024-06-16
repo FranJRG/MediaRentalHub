@@ -44,7 +44,6 @@ export class BookFormComponent implements OnInit{
   //Cremos un formulario reactivo con los campos requeridos para crear un libro
   myForm:FormGroup = this.fb.group({
     title:['',Validators.required],
-    releaseDate:[this.actualYear],
     gender:['',Validators.required],
     image_url:[null],
     author:['',Validators.required],
