@@ -109,106 +109,138 @@ export class BookFormComponent implements OnInit{
   }
 
   //Método para editar un libro
-  editBook(){
+  editBook() {
     if (this.myForm.valid) {
-      this.uploadService.uploadFile(this.image_url).subscribe({ //Subimos la imagen a cloudinary
-        next: (response:any) => {
-          const image_url = response.secure_url; // Asignamos la imagen
-          this.image_url = image_url; // La establecemos
-          const {...book} = this.myForm.value; //Asignamos el libro
-          this.book = book;
-          this.book.image_url = image_url; 
-          this.bookService.putBook(this.book,this.id).subscribe({ //Actualizamos el libro
-            next: (data) => {
-              Swal.fire({ //Mostramos mensaje de éxito si es válido
-                title: "Good job!",
-                text: "Movie update succesfully!",
-                icon: "success",
-                confirmButtonColor: '#428de661'
-              })
-              this.myForm.reset(); //Resetamos el formulario
-            },
-            error: (err) => { //Mostramos un mensaje de error en caso de tener algun error a la hora de editar el libro
-              Swal.fire({
-                title: "Error",
-                text: "There was an error updating the movie. Please try again.",
-                icon: "error",
-                confirmButtonColor: '#428de661'
-              });
-            }
-          });
-        },
-        error: (err) => { //Mostramos error si la imagen no se puede subir
-          Swal.fire({
-            title: "Opps...!",
-            text: "Error uploading the image!!" + err.message,
-            icon: "error",
-            confirmButtonColor: '#428de661'
-          });
-        }
-      });
+      if (this.image_url) {
+        this.uploadService.uploadFile(this.image_url).subscribe({
+          next: (response: any) => {
+            const image_url = response.secure_url;
+            this.image_url = image_url;
+            const { ...book } = this.myForm.value;
+            this.book = book;
+            this.book.image_url = image_url;
+            this.bookService.putBook(this.book, this.id).subscribe({
+              next: (data) => {
+                Swal.fire({
+                  title: "Good job!",
+                  text: "Book updated successfully!",
+                  icon: "success",
+                  confirmButtonColor: '#428de661'
+                });
+                this.myForm.reset();
+              },
+              error: (err) => {
+                Swal.fire({
+                  title: "Error",
+                  text: "There was an error updating the book. Please try again.",
+                  icon: "error",
+                  confirmButtonColor: '#428de661'
+                });
+              }
+            });
+          },
+          error: (err) => {
+            Swal.fire({
+              title: "Oops...!",
+              text: "Error uploading the image!! " + err.message,
+              icon: "error",
+              confirmButtonColor: '#428de661'
+            });
+          }
+        });
+      } else {
+        this.bookService.putBook(this.book, this.id).subscribe({
+          next: (data) => {
+            Swal.fire({
+              title: "Good job!",
+              text: "Book updated successfully!",
+              icon: "success",
+              confirmButtonColor: '#428de661'
+            });
+          },
+          error: (err) => {
+            Swal.fire({
+              title: "Error",
+              text: "There was an error updating the book. Please try again.",
+              icon: "error",
+              confirmButtonColor: '#428de661'
+            });
+          }
+        });
+      }
     }
   }
 
-  //Método para añadir un libro
   addBook() {
     if (this.myForm.valid) {
-      this.uploadService.uploadFile(this.image_url).subscribe({ //Subiremos la imagen a cloudinary
-        next: (response:any) => {
-          const image_url = response.secure_url; //Asignamos la url de la imagen a la imagen en formato string
-          this.image_url = image_url;
-          console.log(this.image_url);
-          const {...book} = this.myForm.value; // Asignamos el libro a los campos del formulario
-          this.book = book;
-          this.book.image_url = image_url; 
-          console.log(this.book.image_url);
-          this.bookService.postBook(this.book).subscribe({
-            next: (data) => {
-              console.log(this.book);
-              Swal.fire({ // Mensaje de éxito a la hora de añadir el libro
-                title: "Good job!",
-                text: "Book added!",
-                icon: "success",
-                confirmButtonColor: '#428de661'
-              })
-            },
-            error: (err) => {
-              Swal.fire({ //Mensaje de error al añadir el libro
-                title: "Error",
-                text: "There was an error adding the book. Please try again later.",
-                icon: "error",
-                confirmButtonColor: '#428de661'
-              });
-            }
-          });
-          this.myForm.reset(); //Reseteamos el formulario
-        },
-        error: (err) => { // Mensaje de error al subir la imagen
-          Swal.fire({
-            title: "Opps...!",
-            text: "Error!!" + err.message,
-            icon: "error",
-            confirmButtonColor: '#428de661'
-          });
-        }
-      });
+      if (this.image_url) {
+        this.uploadService.uploadFile(this.image_url).subscribe({
+          next: (response: any) => {
+            const image_url = response.secure_url;
+            this.image_url = image_url;
+            const { ...book } = this.myForm.value;
+            this.book = book;
+            this.book.image_url = image_url;
+            this.bookService.postBook(this.book).subscribe({
+              next: (data) => {
+                Swal.fire({
+                  title: "Good job!",
+                  text: "Book added!",
+                  icon: "success",
+                  confirmButtonColor: '#428de661'
+                });
+                this.myForm.reset();
+              },
+              error: (err) => {
+                Swal.fire({
+                  title: "Error",
+                  text: "There was an error adding the book. Please try again later.",
+                  icon: "error",
+                  confirmButtonColor: '#428de661'
+                });
+              }
+            });
+          },
+          error: (err) => {
+            Swal.fire({
+              title: "Oops...!",
+              text: "Error uploading the image!! " + err.message,
+              icon: "error",
+              confirmButtonColor: '#428de661'
+            });
+          }
+        });
+      } else {
+        this.bookService.postBook(this.book).subscribe({
+          next: (data) => {
+            Swal.fire({
+              title: "Good job!",
+              text: "Book added!",
+              icon: "success",
+              confirmButtonColor: '#428de661'
+            });
+          },
+          error: (err) => {
+            Swal.fire({
+              title: "Error",
+              text: "There was an error adding the book. Please try again later.",
+              icon: "error",
+              confirmButtonColor: '#428de661'
+            });
+          }
+        });
+      }
     }
   }
 
-  //Método para asociar el input del html de la imagen a la imagen del objeto
   getFile(event: Event) {
-    
     const input: HTMLInputElement = <HTMLInputElement>event.target;
-    
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = (e: any) => {
-        console.log('Got here: ', typeof(e.target.result));
         this.image_url = e.target.result;
       }
       reader.readAsDataURL(input.files[0]);
     }
-    console.log(this.image_url);
-
-  } 
+  }
 }
