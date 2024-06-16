@@ -91,7 +91,7 @@ export class ManageBooksComponent {
         Swal.fire({
           icon:'success',
           title:'Deleted',
-          text:'Movie delete success'
+          text:'Book delete success'
         })
       },
       error : (err) => {
