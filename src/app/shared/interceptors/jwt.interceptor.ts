@@ -19,10 +19,10 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
     }
   } 
   //Obtenemos el token del localStorage
-  return next(req).pipe(finalize(() => loader.stop()),
+  return next(req).pipe(finalize(() => loader.stop()), //Paramos el loader
           catchError((err) => {
             console.log(err.status);
-            if(err.status == 401){
+            if(err.status == 401){ //Manejo del error 401 para token no válidos
               Swal.fire({
                 icon:'error',
                 title:'Bad credentials',
