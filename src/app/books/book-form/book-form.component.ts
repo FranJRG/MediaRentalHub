@@ -134,7 +134,7 @@ export class BookFormComponent implements OnInit{
               error: (err) => { //Mostramos un mensaje de error en caso de tener algun error a la hora de editar el libro
                 Swal.fire({
                   title: "Error",
-                  text: "There was an error updating the movie. Please try again.",
+                  text: "There was an error updating the book. Please try again.",
                   icon: "error",
                   confirmButtonColor: '#428de661'
                 });
@@ -155,7 +155,7 @@ export class BookFormComponent implements OnInit{
           next: (data) => {
             Swal.fire({ //Mostramos mensaje de éxito si es válido
               title: "Good job!",
-              text: "Movie update succesfully!",
+              text: "Book update succesfully!",
               icon: "success",
               confirmButtonColor: '#428de661'
             })
@@ -163,7 +163,7 @@ export class BookFormComponent implements OnInit{
           error: (err) => { //Mostramos un mensaje de error en caso de tener algun error a la hora de editar el libro
             Swal.fire({
               title: "Error",
-              text: "There was an error updating the movie. Please try again.",
+              text: "There was an error updating the book. Please try again.",
               icon: "error",
               confirmButtonColor: '#428de661'
             });
