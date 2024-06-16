@@ -12,6 +12,20 @@ export interface Movie {
     price:       number;
 }
 
+export interface MovieAdd {
+    mediaId?:     number;
+    title:       string;
+    release_date: number;
+    gender:      string;
+    imageUrl:    string;
+    available:   boolean;
+    stock:       number;
+    rentals:     Rental[];
+    reviews:     Review[];
+    director:    string;
+    price:       number;
+}
+
 export interface Review {
     reviewId: number;
     userId:   number;

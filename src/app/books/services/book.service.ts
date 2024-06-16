@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Book, Content, Main } from '../interfaces/book';
+import { Book, BookAdd, Content, Main } from '../interfaces/book';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class BookService {
   constructor(private http:HttpClient) { }
 
   //Url para tirar peticiones
-  url = 'https://proyectoapi-franjrg.onrender.com/books';
+  url = 'http://localhost:8080/books';
   
   //Obtener todos los libros de forma páginada
   getBooks(url:string): Observable<Main> {
@@ -28,13 +28,17 @@ export class BookService {
     return this.http.get<Book>(`${this.url}/${id}`);
   }
 
+  getBookAdd(id:number):Observable<BookAdd> {
+    return this.http.get<BookAdd>(`${this.url}/${id}`);
+  }
+
   //Agregamos un libro
-  postBook(book:Omit<Book,"mediaId">):Observable<Book>{
+  postBook(book:Omit<BookAdd,"mediaId">):Observable<Book>{
     return this.http.post<Book>(this.url + "/", book);
   }
   
   //Editamos un libro
-  putBook(book:Book,id:number):Observable<Book>{
+  putBook(book:BookAdd,id:number):Observable<Book>{
     return this.http.put<Book>(`${this.url}/${id}`,book);
   }
 

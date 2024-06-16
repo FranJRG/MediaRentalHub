@@ -1,8 +1,7 @@
-
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BookService } from '../services/book.service';
-import { Book } from '../interfaces/book';
+import { Book, BookAdd } from '../interfaces/book';
 import Swal from 'sweetalert2';
 import { UploadService } from '../services/upload.service';
 import { SearchBoxComponent } from '../search-box/search-box.component';
@@ -30,11 +29,11 @@ export class BookFormComponent implements OnInit{
   actualYear = new Date().getFullYear();
 
   //Creamos un libro vacío omitiendo el id
-  book:Omit<Book,"mediaId"> = {
+  book:Omit<BookAdd,"mediaId"> = {
     title:       '',
     release_date:  this.actualYear,
     gender:       '',
-    image_url:     '',
+    imageUrl:     '',
     available:    true,
     stock:        0,
     rentals:      [],
@@ -91,10 +90,9 @@ export class BookFormComponent implements OnInit{
   //Al cargar la página si el id es distinto de 0 o está definido
   ngOnInit(): void {
     if(this.id != 0 && this.id != undefined){ 
-      this.bookService.getBook(this.id).subscribe({
+      this.bookService.getBookAdd(this.id).subscribe({
         next:(data)=>{
           this.book = data;
-          console.log(this.book);
           this.myForm.setValue({ //Asignamos los valores del formulario a los campos del libro que hemos buscado
             title:this.book.title,
             releaseDate:this.book.release_date,
@@ -111,27 +109,26 @@ export class BookFormComponent implements OnInit{
   }
 
   //Método para editar un libro
-  editBook(){
+  editBook() {
     if (this.myForm.valid) {
-      if(this.image_url){
-        this.uploadService.uploadFile(this.image_url).subscribe({ //Subimos la imagen a cloudinary
-          next: (response:any) => {
-            const image_url = response.secure_url; // Asignamos la imagen
-            this.image_url = image_url; // La establecemos
-            const {...book} = this.myForm.value; //Asignamos el libro
+      if (this.image_url) {
+        this.uploadService.uploadFile(this.image_url).subscribe({
+          next: (response: any) => {
+            const image_url = response.secure_url;
+            this.image_url = image_url;
+            const { ...book } = this.myForm.value;
             this.book = book;
-            this.book.image_url = image_url; 
-            this.bookService.putBook(this.book,this.id).subscribe({ //Actualizamos el libro
+            this.book.imageUrl = image_url;
+            this.bookService.putBook(this.book, this.id).subscribe({
               next: (data) => {
-                Swal.fire({ //Mostramos mensaje de éxito si es válido
+                Swal.fire({
                   title: "Good job!",
-                  text: "Book update succesfully!",
+                  text: "Book updated successfully!",
                   icon: "success",
                   confirmButtonColor: '#428de661'
-                })
-                this.myForm.reset(); //Resetamos el formulario
+                });
               },
-              error: (err) => { //Mostramos un mensaje de error en caso de tener algun error a la hora de editar el libro
+              error: (err) => {
                 Swal.fire({
                   title: "Error",
                   text: "There was an error updating the book. Please try again.",
@@ -141,26 +138,26 @@ export class BookFormComponent implements OnInit{
               }
             });
           },
-          error: (err) => { //Mostramos error si la imagen no se puede subir
+          error: (err) => {
             Swal.fire({
-              title: "Opps...!",
-              text: "Error uploading the image!!" + err.message,
+              title: "Oops...!",
+              text: "Error uploading the image!! " + err.message,
               icon: "error",
               confirmButtonColor: '#428de661'
             });
           }
         });
-      }else{
-        this.bookService.putBook(this.book,this.id).subscribe({ //Actualizamos el libro
+      } else {
+        this.bookService.putBook(this.book, this.id).subscribe({
           next: (data) => {
-            Swal.fire({ //Mostramos mensaje de éxito si es válido
+            Swal.fire({
               title: "Good job!",
-              text: "Book update succesfully!",
+              text: "Book updated successfully!",
               icon: "success",
               confirmButtonColor: '#428de661'
-            })
+            });
           },
-          error: (err) => { //Mostramos un mensaje de error en caso de tener algun error a la hora de editar el libro
+          error: (err) => {
             Swal.fire({
               title: "Error",
               text: "There was an error updating the book. Please try again.",
@@ -173,32 +170,27 @@ export class BookFormComponent implements OnInit{
     }
   }
 
-  //Método para añadir un libro
   addBook() {
     if (this.myForm.valid) {
-      if(this.image_url){
-
-        this.uploadService.uploadFile(this.image_url).subscribe({ //Subiremos la imagen a cloudinary
-          next: (response:any) => {
-            const image_url = response.secure_url; //Asignamos la url de la imagen a la imagen en formato string
+      if (this.image_url) {
+        this.uploadService.uploadFile(this.image_url).subscribe({
+          next: (response: any) => {
+            const image_url = response.secure_url;
             this.image_url = image_url;
-            console.log(this.image_url);
-            const {...book} = this.myForm.value; // Asignamos el libro a los campos del formulario
+            const { ...book } = this.myForm.value;
             this.book = book;
-            this.book.image_url = image_url; 
-            console.log(this.book.image_url);
+            this.book.imageUrl = image_url;
             this.bookService.postBook(this.book).subscribe({
               next: (data) => {
-                console.log(this.book);
-                Swal.fire({ // Mensaje de éxito a la hora de añadir el libro
+                Swal.fire({
                   title: "Good job!",
                   text: "Book added!",
                   icon: "success",
                   confirmButtonColor: '#428de661'
-                })
+                });
               },
               error: (err) => {
-                Swal.fire({ //Mensaje de error al añadir el libro
+                Swal.fire({
                   title: "Error",
                   text: "There was an error adding the book. Please try again later.",
                   icon: "error",
@@ -206,30 +198,28 @@ export class BookFormComponent implements OnInit{
                 });
               }
             });
-            this.myForm.reset(); //Reseteamos el formulario
           },
-          error: (err) => { // Mensaje de error al subir la imagen
+          error: (err) => {
             Swal.fire({
-              title: "Opps...!",
-              text: "Error!!" + err.message,
+              title: "Oops...!",
+              text: "Error uploading the image!! " + err.message,
               icon: "error",
               confirmButtonColor: '#428de661'
             });
           }
         });
-      }else{
+      } else {
         this.bookService.postBook(this.book).subscribe({
           next: (data) => {
-            console.log(this.book);
-            Swal.fire({ // Mensaje de éxito a la hora de añadir el libro
+            Swal.fire({
               title: "Good job!",
               text: "Book added!",
               icon: "success",
               confirmButtonColor: '#428de661'
-            })
+            });
           },
           error: (err) => {
-            Swal.fire({ //Mensaje de error al añadir el libro
+            Swal.fire({
               title: "Error",
               text: "There was an error adding the book. Please try again later.",
               icon: "error",
@@ -237,25 +227,18 @@ export class BookFormComponent implements OnInit{
             });
           }
         });
-        this.myForm.reset(); //Reseteamos el formulario
       }
     }
   }
 
-  //Método para asociar el input del html de la imagen a la imagen del objeto
   getFile(event: Event) {
-    
     const input: HTMLInputElement = <HTMLInputElement>event.target;
-    
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = (e: any) => {
-        console.log('Got here: ', typeof(e.target.result));
         this.image_url = e.target.result;
       }
       reader.readAsDataURL(input.files[0]);
     }
-    console.log(this.image_url);
-
-  } 
+  }
 }
