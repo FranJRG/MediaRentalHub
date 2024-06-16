@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BookService } from '../services/book.service';
-import { Book } from '../interfaces/book';
+import { Book, BookAdd } from '../interfaces/book';
 import Swal from 'sweetalert2';
 import { UploadService } from '../services/upload.service';
 import { SearchBoxComponent } from '../search-box/search-box.component';
@@ -29,11 +29,11 @@ export class BookFormComponent implements OnInit{
   actualYear = new Date().getFullYear();
 
   //Creamos un libro vacío omitiendo el id
-  book:Omit<Book,"mediaId"> = {
+  book:Omit<BookAdd,"mediaId"> = {
     title:       '',
     release_date:  this.actualYear,
     gender:       '',
-    image_url:     '',
+    imageUrl:     '',
     available:    true,
     stock:        0,
     rentals:      [],
@@ -90,7 +90,7 @@ export class BookFormComponent implements OnInit{
   //Al cargar la página si el id es distinto de 0 o está definido
   ngOnInit(): void {
     if(this.id != 0 && this.id != undefined){ 
-      this.bookService.getBook(this.id).subscribe({
+      this.bookService.getBookAdd(this.id).subscribe({
         next:(data)=>{
           this.book = data;
           this.myForm.setValue({ //Asignamos los valores del formulario a los campos del libro que hemos buscado
@@ -118,7 +118,7 @@ export class BookFormComponent implements OnInit{
             this.image_url = image_url;
             const { ...book } = this.myForm.value;
             this.book = book;
-            this.book.image_url = image_url;
+            this.book.imageUrl = image_url;
             this.bookService.putBook(this.book, this.id).subscribe({
               next: (data) => {
                 Swal.fire({
@@ -179,7 +179,7 @@ export class BookFormComponent implements OnInit{
             this.image_url = image_url;
             const { ...book } = this.myForm.value;
             this.book = book;
-            this.book.image_url = image_url;
+            this.book.imageUrl = image_url;
             this.bookService.postBook(this.book).subscribe({
               next: (data) => {
                 Swal.fire({
@@ -188,7 +188,6 @@ export class BookFormComponent implements OnInit{
                   icon: "success",
                   confirmButtonColor: '#428de661'
                 });
-                this.myForm.reset();
               },
               error: (err) => {
                 Swal.fire({

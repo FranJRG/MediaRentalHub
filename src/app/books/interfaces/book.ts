@@ -12,6 +12,20 @@ export interface Book {
     price:       number;
 }
 
+export interface BookAdd {
+    media_id?:     number;
+    title:       string;
+    release_date: number;
+    gender:      string;
+    imageUrl:    string;
+    available:   boolean;
+    stock:       number;
+    rentals:     Rental[];
+    reviews:     Review[];
+    author:      string;
+    price:       number;
+}
+
 export interface Review {
     reviewId: number;
     userId:   number;

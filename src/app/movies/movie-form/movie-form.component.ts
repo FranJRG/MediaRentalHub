@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { MovieService } from '../services/movie.service';
-import { Movie } from '../interfaces/movie';
+import { Movie, MovieAdd } from '../interfaces/movie';
 import { CloudinaryModule } from '@cloudinary/ng';
 import { UploadService } from '../../books/services/upload.service';
 
@@ -29,11 +29,11 @@ export class MovieFormComponent {
   actualYear = new Date().getFullYear();
 
   //Creamos una película vacía omitiendo el id
-  movie:Omit<Movie,"mediaId"> = {
+  movie:Omit<MovieAdd,"mediaId"> = {
     title:       '',
     release_date:  this.actualYear,
     gender:       '',
-    image_url:     '',
+    imageUrl:     '',
     available:    true,
     stock:        0,
     rentals:      [],
@@ -61,7 +61,7 @@ export class MovieFormComponent {
 
   ngOnInit(): void {
     if(this.id != 0 && this.id != undefined){
-      this.movieService.getMovie(this.id).subscribe({
+      this.movieService.getMovieAdd(this.id).subscribe({
         next:(data)=>{
           this.movie = data;
           this.myForm.setValue({ //Asignamos los valores del formulario a los campos del libro que hemos buscado
@@ -89,7 +89,7 @@ export class MovieFormComponent {
           console.log(this.image_url);
           const {...movie} = this.myForm.value; //Asignamos los campos del formulario a la película
           this.movie = movie;
-          this.movie.image_url = this.image_url; 
+          this.movie.imageUrl = this.image_url; 
           console.log(this.movie)
           this.movieService.postMovie(this.movie).subscribe({
             next: (data) => {
@@ -132,7 +132,7 @@ export class MovieFormComponent {
           console.log(this.image_url);
           const {...movie} = this.myForm.value; //Asignamos los valores a la pelicula
           this.movie = movie;
-          this.movie.image_url = image_url; 
+          this.movie.imageUrl = image_url; 
           this.movieService.putMovie(this.movie,this.id).subscribe({ //Editamos la pelicula
             next: (data) => {
               Swal.fire({ //Mensaje de éxito en caso de edición satisfactoria
