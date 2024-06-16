@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { UserService } from '../../user/services/user.service';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,15 @@ export class AuthService {
         this.storage(resp) //Almacenamos la respuesta en nuestro storage
       }),
       map(resp => true), //Devolvemos true
-      catchError(err => of(err.error.msg)) //Manejamos errores
+      catchError(err => {
+        // Mostrar error con SweetAlert2
+        Swal.fire({
+          icon: 'error',
+          title: 'Error de autenticación',
+          text: err.error.msg || 'Algo salió mal. Inténtalo de nuevo.',
+        });
+        return of(null); // Devolvemos null en caso de error
+      })
     )
   }
 
