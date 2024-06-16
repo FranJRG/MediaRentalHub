@@ -15,7 +15,6 @@ export interface Movie {
 export interface MovieAdd {
     mediaId?:     number;
     title:       string;
-    release_date: number;
     gender:      string;
     imageUrl:    string;
     available:   boolean;

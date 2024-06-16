@@ -31,7 +31,6 @@ export class MovieFormComponent {
   //Creamos una película vacía omitiendo el id
   movie:Omit<MovieAdd,"mediaId"> = {
     title:       '',
-    release_date:  this.actualYear,
     gender:       '',
     imageUrl:     '',
     available:    true,
@@ -66,7 +65,6 @@ export class MovieFormComponent {
           this.movie = data;
           this.myForm.setValue({ //Asignamos los valores del formulario a los campos del libro que hemos buscado
             title:this.movie.title,
-            releaseDate:this.movie.release_date,
             image_url:null,
             gender:this.movie.gender,
             director:this.movie.director,
@@ -82,83 +80,128 @@ export class MovieFormComponent {
   //Método para añadir una película
   addMovie(){
     if (this.myForm.valid) {
-      this.uploadService.uploadFile(this.image_url).subscribe({
-        next: (response:any) => {
-          const image_url = response.secure_url; //Asignamos la url de la imagen a la imagen creada de tipo string
-          this.image_url = image_url;
-          console.log(this.image_url);
-          const {...movie} = this.myForm.value; //Asignamos los campos del formulario a la película
-          this.movie = movie;
-          this.movie.imageUrl = this.image_url; 
-          console.log(this.movie)
-          this.movieService.postMovie(this.movie).subscribe({
-            next: (data) => {
-              data.mediaId = this.id;
-              Swal.fire({ //Mensaje de éxito en caso de que la pelicula se suba exitosamente
-                title: "Good job!",
-                text: "Movie added!",
-                icon: "success",
-              })
-            },
-            error: (err) => { //Mensaje de error a la hora de añadir un libro
-              console.error('Error adding book:', err.message);
-              Swal.fire({
-                title: "Error",
-                text: "There was an error adding the book. Please try again later.",
-                icon: "error",
-              });
-            }
-          });
-          this.myForm.reset(); //Reseteamos el formulario
-        },
-        error: (err) => { //Mensaje de error a la hora de subir la imagen
-          Swal.fire({
-            title: "Opps...!",
-            text: "Error!!" + err.message,
-            icon: "error",
-          });
-        }
-      });
+      if(this.image_url){
+
+        this.uploadService.uploadFile(this.image_url).subscribe({
+          next: (response:any) => {
+            const image_url = response.secure_url; //Asignamos la url de la imagen a la imagen creada de tipo string
+            this.image_url = image_url;
+            console.log(this.image_url);
+            const {...movie} = this.myForm.value; //Asignamos los campos del formulario a la película
+            this.movie = movie;
+            this.movie.imageUrl = this.image_url; 
+            console.log(this.movie)
+            this.movieService.postMovie(this.movie).subscribe({
+              next: (data) => {
+                data.mediaId = this.id;
+                Swal.fire({ //Mensaje de éxito en caso de que la pelicula se suba exitosamente
+                  title: "Good job!",
+                  text: "Movie added!",
+                  icon: "success",
+                })
+              },
+              error: (err) => { //Mensaje de error a la hora de añadir un libro
+                console.error('Error adding book:', err.message);
+                Swal.fire({
+                  title: "Error",
+                  text: "There was an error adding the book. Please try again later.",
+                  icon: "error",
+                });
+              }
+            });
+            this.myForm.reset(); //Reseteamos el formulario
+          },
+          error: (err) => { //Mensaje de error a la hora de subir la imagen
+            Swal.fire({
+              title: "Opps...!",
+              text: "Error!!" + err.message,
+              icon: "error",
+            });
+          }
+        });
+      }else{
+        const {...movie} = this.myForm.value; //Asignamos los campos del formulario a la película
+        this.movie = movie;
+        this.movieService.postMovie(this.movie).subscribe({
+          next: (data) => {
+            data.mediaId = this.id;
+            Swal.fire({ //Mensaje de éxito en caso de que la pelicula se suba exitosamente
+              title: "Good job!",
+              text: "Movie added!",
+              icon: "success",
+            })
+          },
+          error: (err) => { //Mensaje de error a la hora de añadir un libro
+            console.error('Error adding book:', err.message);
+            Swal.fire({
+              title: "Error",
+              text: "There was an error adding the book. Please try again later.",
+              icon: "error",
+            });
+          }
+        });
+      }
     }
   }
 
   //Método para editar una película
   editMovie(){
     if (this.myForm.valid) {
-      this.uploadService.uploadFile(this.image_url).subscribe({ //Subimos la imagen
-        next: (response:any) => {
-          const image_url = response.secure_url; //Asignamos la url en formato string
-          this.image_url = image_url;
-          console.log(this.image_url);
-          const {...movie} = this.myForm.value; //Asignamos los valores a la pelicula
-          this.movie = movie;
-          this.movie.imageUrl = image_url; 
-          this.movieService.putMovie(this.movie,this.id).subscribe({ //Editamos la pelicula
-            next: (data) => {
-              Swal.fire({ //Mensaje de éxito en caso de edición satisfactoria
-                title: "Good job!",
-                text: "Movie update succesfully!",
-                icon: "success",
-              })
-            },
-            error: (err) => { //Mensaje de error en caso de no poder editar correctamente
-              Swal.fire({
-                title: "Error",
-                text: "There was an error updating the movie. Please try again later.",
-                icon: "error",
-              });
-            }
-          });
-          this.myForm.reset(); //Reseteamos el formulario
-        },
-        error: (err) => { //Mensaje de error en caso de no poder subir la imagen
-          Swal.fire({
-            title: "Opps...!",
-            text: "Error!!" + err.message,
-            icon: "error",
-          });
-        }
-      });
+      if(this.image_url){
+
+        this.uploadService.uploadFile(this.image_url).subscribe({ //Subimos la imagen
+          next: (response:any) => {
+            const image_url = response.secure_url; //Asignamos la url en formato string
+            this.image_url = image_url;
+            console.log(this.image_url);
+            const {...movie} = this.myForm.value; //Asignamos los valores a la pelicula
+            this.movie = movie;
+            this.movie.imageUrl = image_url; 
+            this.movieService.putMovie(this.movie,this.id).subscribe({ //Editamos la pelicula
+              next: (data) => {
+                Swal.fire({ //Mensaje de éxito en caso de edición satisfactoria
+                  title: "Good job!",
+                  text: "Movie update succesfully!",
+                  icon: "success",
+                })
+              },
+              error: (err) => { //Mensaje de error en caso de no poder editar correctamente
+                Swal.fire({
+                  title: "Error",
+                  text: "There was an error updating the movie. Please try again later.",
+                  icon: "error",
+                });
+              }
+            });
+          },
+          error: (err) => { //Mensaje de error en caso de no poder subir la imagen
+            Swal.fire({
+              title: "Opps...!",
+              text: "Error!!" + err.message,
+              icon: "error",
+            });
+          }
+        });
+      }else{
+        const {...movie} = this.myForm.value; //Asignamos los valores a la pelicula
+        this.movie = movie;
+        this.movieService.putMovie(this.movie,this.id).subscribe({ //Editamos la pelicula
+          next: (data) => {
+            Swal.fire({ //Mensaje de éxito en caso de edición satisfactoria
+              title: "Good job!",
+              text: "Movie update succesfully!",
+              icon: "success",
+            })
+          },
+          error: (err) => { //Mensaje de error en caso de no poder editar correctamente
+            Swal.fire({
+              title: "Error",
+              text: "There was an error updating the movie. Please try again later.",
+              icon: "error",
+            });
+          }
+        });
+      }
     }
   }
 
