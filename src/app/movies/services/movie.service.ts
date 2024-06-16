@@ -10,7 +10,7 @@ export class MovieService {
 
   constructor(private http:HttpClient) { }
 
-  url:string = 'http://localhost:8080/movies';
+  url:string = 'https://proyectoapi-franjrg.onrender.com/movies';
   
   getMovies(url:string): Observable<Main> {
     return this.http.get<Main>(this.url+url);

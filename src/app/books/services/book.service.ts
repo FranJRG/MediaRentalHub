@@ -11,7 +11,7 @@ export class BookService {
   constructor(private http:HttpClient) { }
 
   //Url para tirar peticiones
-  url = 'http://localhost:8080/books';
+  url = 'https://proyectoapi-franjrg.onrender.com/books';
   
   //Obtener todos los libros de forma páginada
   getBooks(url:string): Observable<Main> {
