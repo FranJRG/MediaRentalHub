@@ -109,14 +109,14 @@ export class BookFormComponent implements OnInit{
   editBook() {
     if (this.myForm.valid) {
       if (this.image_url) {
-        this.uploadService.uploadFile(this.image_url).subscribe({
+        this.uploadService.uploadFile(this.image_url).subscribe({ //Subimos la imagen
           next: (response: any) => {
             const image_url = response.secure_url;
             this.image_url = image_url;
-            const { ...book } = this.myForm.value;
+            const { ...book } = this.myForm.value; //Asignamos los campos del formulario al book
             this.book = book;
-            this.book.imageUrl = image_url;
-            this.bookService.putBook(this.book, this.id).subscribe({
+            this.book.imageUrl = image_url; //Nos aseguramos que este bien asignada la imagen
+            this.bookService.putBook(this.book, this.id).subscribe({ //Hacemos la peticion put
               next: (data) => {
                 Swal.fire({
                   title: "Good job!",
@@ -124,7 +124,7 @@ export class BookFormComponent implements OnInit{
                   icon: "success",
                   confirmButtonColor: '#428de661'
                 });
-              },
+              }, //Manejo de errores
               error: (err) => {
                 Swal.fire({
                   title: "Error",
@@ -144,7 +144,7 @@ export class BookFormComponent implements OnInit{
             });
           }
         });
-      } else {
+      } else { //Si la imagen es nula solo hacemos la peticion put 
         const { ...book } = this.myForm.value;
         this.book = book;
         this.bookService.putBook(this.book, this.id).subscribe({
@@ -155,7 +155,7 @@ export class BookFormComponent implements OnInit{
               icon: "success",
               confirmButtonColor: '#428de661'
             });
-          },
+          }, //Manejamos errores
           error: (err) => {
             Swal.fire({
               title: "Error",
@@ -169,17 +169,18 @@ export class BookFormComponent implements OnInit{
     }
   }
 
+  //Método para añadir un libro
   addBook() {
     if (this.myForm.valid) {
-      if (this.image_url) {
-        this.uploadService.uploadFile(this.image_url).subscribe({
+      if (this.image_url) { //Verificamos que exista la imagen
+        this.uploadService.uploadFile(this.image_url).subscribe({ //Subimos la imagen
           next: (response: any) => {
             const image_url = response.secure_url;
             this.image_url = image_url;
-            const { ...book } = this.myForm.value;
+            const { ...book } = this.myForm.value; //Asignamos el formulario al book
             this.book = book;
             this.book.imageUrl = image_url;
-            this.bookService.postBook(this.book).subscribe({
+            this.bookService.postBook(this.book).subscribe({ //Hacemos la peticion post
               next: (data) => {
                 Swal.fire({
                   title: "Good job!",
@@ -187,7 +188,7 @@ export class BookFormComponent implements OnInit{
                   icon: "success",
                   confirmButtonColor: '#428de661'
                 });
-              },
+              },//Manejo de errores
               error: (err) => {
                 Swal.fire({
                   title: "Error",
@@ -207,7 +208,7 @@ export class BookFormComponent implements OnInit{
             });
           }
         });
-      } else {
+      } else { //Si la imagen no exist solo realizamos la peticion post
         const { ...book } = this.myForm.value;
         this.book = book;
         this.bookService.postBook(this.book).subscribe({
