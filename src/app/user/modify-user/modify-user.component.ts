@@ -20,8 +20,7 @@ export class ModifyUserComponent implements OnInit {
   @Input() id: number = 0;
 
   //Creamos un usuario omitiendo los campos que no queremos que aparezcan
-  user: Omit<User,  "registration_date" | "password" | "rentals" | "reviews" | "activated"> = {
-    user_id : this.id,
+  user: Omit<User, 'user_id' | "registration_date" | "password" | "rentals" | "reviews" | "activated"> = {
     username: '',
     email: '',
     address: '',
@@ -42,10 +41,8 @@ export class ModifyUserComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUser(this.id).subscribe({
       next: (data) => {
-        console.log(data);
         this.user = data;
         this.myForm.setValue({ //Asignamos los datos al formulario
-          user_id:this.user.user_id,
           username:this.user.username,
           email:this.user.email,
           address:this.user.address,
@@ -59,7 +56,6 @@ export class ModifyUserComponent implements OnInit {
 
   //Creamos un formulario con los campos necesarios
   myForm:FormGroup = this.fb.group({
-    user_id:[this.id],
     username:['',Validators.required],
     email:['',[Validators.required,Validators.pattern(this.validations.emailPattern)]],
     address:['',Validators.required],
@@ -83,11 +79,13 @@ export class ModifyUserComponent implements OnInit {
           })
         },
         error: (err) => {
+          if(err.status != 401){
           Swal.fire({
             title: "Error",
             text: "There was an error updating the user. Please try again later.",
             icon: "error",
           });
+        }
         }
       })
     }

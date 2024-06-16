@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { User } from '../interfaces/user';
 import { UserService } from '../services/user.service';
 import { jwtDecode } from 'jwt-decode';
@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
   templateUrl: './rentals-form.component.html',
   styleUrl: './rentals-form.component.css',
 })
-export class RentalsFormComponent implements OnInit {
+export class RentalsFormComponent implements OnInit{
   user!: User;
   limitDate!: Date;
   rentalDate!: Date;
@@ -50,11 +50,13 @@ export class RentalsFormComponent implements OnInit {
         });
       },
       error: (err) => {
+        if(err.status != 401){
         Swal.fire({
           title: 'Failed',
           text: 'Something went wrong',
           icon: 'error',
         });
+      }
       },
     });
   }

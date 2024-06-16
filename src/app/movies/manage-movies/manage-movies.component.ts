@@ -37,15 +37,15 @@ export class ManageMoviesComponent implements OnInit{
         this.page = data;
         this.totalItems = data.totalElements;
         this.movies = data.content;
-        console.log(data.content)
-        console.log(this.movies);
       },
       error: (err) => {
+        if(err.status != 401){
         Swal.fire({
           icon: 'error',
           title: 'Not found',
           text: 'Sorry this movie is not available yet', //Si la pelicula no se encuentra mandamos un mensaje de error
         });
+      }
       }
     });
   }
