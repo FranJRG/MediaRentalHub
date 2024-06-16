@@ -4,6 +4,13 @@
     <div class="login form">
       <header>Edit User</header>
       <form [formGroup]="myForm" (ngSubmit)="updateUser()">
+        <label>Id</label>
+        <input
+          type="number"
+          formControlName="user_id"
+          placeholder="Id"
+          readonly
+        />
         <label>Name</label>
         <input
           type="text"

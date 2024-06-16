@@ -20,7 +20,8 @@ export class ModifyUserComponent implements OnInit {
   @Input() id: number = 0;
 
   //Creamos un usuario omitiendo los campos que no queremos que aparezcan
-  user: Omit<User, 'user_id' | "registration_date" | "password" | "rentals" | "reviews" | "activated"> = {
+  user: Omit<User, "registration_date" | "password" | "rentals" | "reviews" | "activated"> = {
+    user_id:this.id,
     username: '',
     email: '',
     address: '',
@@ -43,6 +44,7 @@ export class ModifyUserComponent implements OnInit {
       next: (data) => {
         this.user = data;
         this.myForm.setValue({ //Asignamos los datos al formulario
+          user_id:this.user.user_id,
           username:this.user.username,
           email:this.user.email,
           address:this.user.address,
@@ -56,6 +58,7 @@ export class ModifyUserComponent implements OnInit {
 
   //Creamos un formulario con los campos necesarios
   myForm:FormGroup = this.fb.group({
+    user_id:[this.id],
     username:['',Validators.required],
     email:['',[Validators.required,Validators.pattern(this.validations.emailPattern)]],
     address:['',Validators.required],
