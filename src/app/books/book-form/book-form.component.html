@@ -3,7 +3,7 @@
     <input type="checkbox" id="check" />
     <div class="login form">
       <header>{{id != undefined && id != 0 ? 'Edit book' : 'Add book'}}</header>
-      <form [formGroup]="myForm" (ngSubmit)="addBook()">
+      <form [formGroup]="myForm">
         <label>Title <span>*</span></label>
         <input type="text" formControlName="title" placeholder="Title" />
         @if (invalidField('title')) {
@@ -37,9 +37,9 @@
         <label>Image</label>
         <input type="file" id="image" formControlName="image_url" (change)="getFile($event)">
         @if (this.id != 0 && this.id != undefined) {
-          <input type="submit" class="button" value="Edit"/>
+          <input type="submit" (click)="editBook()" class="button" value="Edit"/>
         }@else {
-          <input type="submit" class="button" value="Add"/>
+          <input type="submit" (click)="addBook()" class="button" value="Add"/>
         }
       </form>
     </div>
