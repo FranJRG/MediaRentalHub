@@ -125,7 +125,7 @@ export class BookFormComponent implements OnInit{
               next: (data) => {
                 Swal.fire({ //Mostramos mensaje de éxito si es válido
                   title: "Good job!",
-                  text: "Movie update succesfully!",
+                  text: "Book update succesfully!",
                   icon: "success",
                   confirmButtonColor: '#428de661'
                 })
