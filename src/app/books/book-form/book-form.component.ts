@@ -127,7 +127,6 @@ export class BookFormComponent implements OnInit{
                   icon: "success",
                   confirmButtonColor: '#428de661'
                 });
-                this.myForm.reset();
               },
               error: (err) => {
                 Swal.fire({
