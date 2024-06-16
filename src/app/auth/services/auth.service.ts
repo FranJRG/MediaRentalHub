@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LoginResponse, User } from '../../user/interfaces/user';
-import { HttpClient, HttpInterceptorFn } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
@@ -19,7 +19,7 @@ export class AuthService {
     return { ...this._user } 
   }
 
-  constructor(private http:HttpClient, private router:Router) { }
+  constructor(private http:HttpClient, private router:Router, private userService:UserService) { }
 
   storage(resp:LoginResponse){ //Almacenamos el token en el localstorage
     localStorage.setItem('token',resp.token) //Seteamos el localstorage con un token
@@ -33,7 +33,15 @@ export class AuthService {
         this.storage(resp) //Almacenamos la respuesta en nuestro storage
       }),
       map(resp => true), //Devolvemos true
-      catchError(err => of(err.error.msg)) //Manejamos errores
+      catchError(err => {
+        // Mostrar error con SweetAlert2
+        Swal.fire({
+          icon: 'error',
+          title: 'Error de autenticación',
+          text: err.error.msg || 'Algo salió mal. Inténtalo de nuevo.',
+        });
+        return of(null); // Devolvemos null en caso de error
+      })
     )
   }
 
@@ -67,29 +75,6 @@ export class AuthService {
     }else{
       return false; //devolvemos false
     }
-  }
-
-  verifyToken():Observable<Boolean>{
-
-    let token = localStorage.getItem('token');
-  
-    if (!token) {
-      return of(false);
-    }
-    
-    token = token.replace("Bearer ","");
-
-    const urlVerify = 'https://proyectoapi-franjrg.onrender.com/verifyToken';
-
-    const body = {token : token};
-
-    return this.http.post<any>(urlVerify, body).pipe(
-      map(response => {return response.status === "200"}),
-      catchError(err => {
-        console.log(err.error.message);
-        return of(false)
-      })
-    )
   }
   
   //Método para el logout
